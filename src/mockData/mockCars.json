@@ -1,0 +1,94 @@
+{
+    "cars": [
+      {
+        "id": 1,
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2018,
+        "price": 25000,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula justo et ante eleifend dignissim.",
+        "image": "https://picsum.photos/id/101/200/300"
+      },
+      {
+        "id": 2,
+        "make": "Honda",
+        "model": "Accord",
+        "year": 2019,
+        "price": 27000,
+        "description": "Sed eget sem justo. Proin ultricies consequat orci eget varius. Cras tempor tortor a massa congue, eget ultrices libero malesuada.",
+        "image": "https://picsum.photos/id/102/200/300"
+      },
+      {
+        "id": 3,
+        "make": "Ford",
+        "model": "Mustang",
+        "year": 2020,
+        "price": 35000,
+        "description": "Fusce at bibendum magna, nec vestibulum nunc. Aenean vel neque eget mi fermentum fermentum.",
+        "image": "https://picsum.photos/id/103/200/300"
+      },
+      {
+        "id": 4,
+        "make": "Chevrolet",
+        "model": "Silverado",
+        "year": 2017,
+        "price": 28000,
+        "description": "Quisque nec orci sed lorem consectetur tincidunt. Nam consequat, nisi quis aliquet varius, lectus leo accumsan quam.",
+        "image": "https://picsum.photos/id/104/200/300"
+      },
+      {
+        "id": 5,
+        "make": "BMW",
+        "model": "X5",
+        "year": 2021,
+        "price": 50000,
+        "description": "Nullam lobortis convallis orci vitae vehicula. Sed nec magna at sapien accumsan ultrices.",
+        "image": "https://picsum.photos/id/105/200/300"
+      },
+      {
+        "id": 6,
+        "make": "Mercedes-Benz",
+        "model": "C-Class",
+        "year": 2019,
+        "price": 45000,
+        "description": "Pellentesque auctor neque at lorem lacinia, nec euismod felis ultrices. Integer ac velit nec eros tincidunt ullamcorper.",
+        "image": "https://picsum.photos/id/106/200/300"
+      },
+      {
+        "id": 7,
+        "make": "Audi",
+        "model": "A4",
+        "year": 2020,
+        "price": 40000,
+        "description": "In hac habitasse platea dictumst. Donec sed tempor neque. Mauris feugiat, felis ut rhoncus tincidunt, mauris eros.",
+        "image": "https://picsum.photos/id/107/200/300"
+      },
+      {
+        "id": 8,
+        "make": "Tesla",
+        "model": "Model 3",
+        "year": 2022,
+        "price": 60000,
+        "description": "Maecenas nec erat sed leo dapibus venenatis. Sed id dui tincidunt, consequat leo vel, gravida tellus.",
+        "image": "https://picsum.photos/id/108/200/300"
+      },
+      {
+        "id": 9,
+        "make": "Lamborghini",
+        "model": "Huracan",
+        "year": 2021,
+        "price": 300000,
+        "description": "Vestibulum scelerisque sapien ut arcu vehicula, ut malesuada ligula scelerisque. Nullam vestibulum urna sapien.",
+        "image": "https://picsum.photos/id/109/200/300"
+      },
+      {
+        "id": 10,
+        "make": "Ferrari",
+        "model": "488 GTB",
+        "year": 2020,
+        "price": 280000,
+        "description": "Etiam sollicitudin, ipsum nec dictum dignissim, lorem ipsum.",
+        "image": "https://picsum.photos/id/110/200/300"
+      }
+    ]
+  }
