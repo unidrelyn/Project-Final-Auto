@@ -81,22 +81,39 @@
 
 
 import React, { useState, useEffect } from 'react';
-import mockCars from '../mockData/mockCars.json'; // Ensure this path is correct
+import mockCars from '../mockData/mockCars.json';
+import { useNavigate } from 'react-router-dom';
+import { useCarList } from '../context/CarListContext';
+
 
 const ListingsPage = () => {
   const [carListings, setCarListings] = useState([]);
+  const { carList } = useCarList();
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Set the car listings data from the cars property of the imported mockCars data
-    setCarListings(mockCars.cars); // Use mockCars.cars to access the array
+    setCarListings(mockCars.cars);
   }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
-  // Ensure carListings is an array before filtering
+  const handleEdit = (carId) => {
+    navigate(`/edit/${carId}`);
+  };
+
+  const handleDelete = (carId) => {
+    console.log('Delete car with ID:', carId);
+    const updatedListings = carListings.filter(car => car.id !== carId);
+    setCarListings(updatedListings);
+  };
+
+  const handleAddCar = () => {
+    navigate('/add-car'); // Navigate to the "Add Car" page
+  };
+
   const filteredListings = carListings.filter(car =>
     car.make.toLowerCase().includes(searchTerm) || car.model.toLowerCase().includes(searchTerm)
   );
@@ -104,6 +121,7 @@ const ListingsPage = () => {
   return (
     <div className="listings-page-container">
       <h1>Car Listings</h1>
+      <button onClick={handleAddCar}>Add Car</button> {/* Button to navigate to the "Add Car" page */}
       <input
         type="text"
         placeholder="Search by make or model..."
@@ -114,12 +132,13 @@ const ListingsPage = () => {
         {filteredListings.length > 0 ? (
           filteredListings.map(car => (
             <div key={car.id} className="car-listing-item">
-              {/* Update the src attribute to use "car.image" */}
               <img src={car.image} alt={`${car.make} ${car.model}`} className="car-image" />
               <h2>{car.make} {car.model}</h2>
               <p>Year: {car.year}</p>
               <p>Price: ${car.price}</p>
               <p>{car.description}</p>
+              <button onClick={() => handleEdit(car.id)}>Edit</button>
+              <button onClick={() => handleDelete(car.id)}>Delete</button>
             </div>
           ))
         ) : (

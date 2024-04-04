@@ -50,15 +50,18 @@
 
 // export default NavBar;
 
-
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom'; // Import NavLink from react-router-dom
+import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate(); // Use useNavigate hook
 
-  const handleSearch = () => {
-    // Implement search functionality
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    // Navigate to a search results page, passing the search term as a query parameter
+    navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm(''); // Optionally clear the search input after submission
   };
 
   return (
@@ -71,9 +74,6 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">Home</NavLink>
-            </li>
-            <li className="nav-item">
               <NavLink className="nav-link" to="/listings">Listings</NavLink>
             </li>
             <li className="nav-item">
@@ -82,13 +82,11 @@ const NavBar = () => {
             <li className="nav-item">
               <NavLink className="nav-link" to="/login">Login</NavLink>
             </li>
-            {/* Add signup link */}
             <li className="nav-item">
               <NavLink className="nav-link" to="/signup">Signup</NavLink>
             </li>
           </ul>
-          {/* Search input and button */}
-          <form className="d-flex">
+          <form className="d-flex" onSubmit={handleSearch}>
             <input 
               className="form-control me-2" 
               type="search" 
@@ -97,7 +95,7 @@ const NavBar = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button className="btn btn-outline-success" type="button" onClick={handleSearch}>Search</button>
+            <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
       </div>

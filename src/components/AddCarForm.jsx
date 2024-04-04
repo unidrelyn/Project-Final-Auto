@@ -65,74 +65,44 @@
 // export default AddCarForm;
 
 import React, { useState } from 'react';
-import mockCars from '../mockData/mockCars.json'; // Import mock car data
-// Remove the axios import
+import { useCarList } from '../context/CarListContext'; // Import your custom hook from the context
+import { useNavigate } from 'react-router-dom';
 
-function AddCarForm() {
+const AddCarForm = () => {
   const [carData, setCarData] = useState({
     make: '',
     model: '',
     year: '',
     price: '',
-    description: ''
+    description: '',
+    image: ''
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const { addCar } = useCarList(); // Destructure the addCar function from your context
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCarData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    setCarData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
-
-    try {
-      // Instead of making an actual HTTP request, you can handle the form submission here
-      // For testing purposes, you can log the form data or perform any other desired actions
-      console.log('Form submitted with data:', carData);
-      
-      // For more advanced testing, you can add logic to update the mock data
-      // For example, if you want to add the new car to the mock data:
-      // const updatedMockCars = [...mockCars, carData];
-      // console.log('Updated mock cars data:', updatedMockCars);
-      
-      // Optionally, clear the form or provide user feedback
-      setCarData({
-        make: '',
-        model: '',
-        year: '',
-        price: '',
-        description: ''
-      });
-      setError('');
-    } catch (error) {
-      console.error('Error submitting the form:', error);
-      setError('Failed to add the car. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+    addCar({ ...carData, id: Date.now() }); // Use Date.now() for a simple unique ID or your preferred method
+    navigate('/listings'); // Redirect to the listings page or confirmation page
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="make" type="text" placeholder="Make" value={carData.make} onChange={handleChange} />
-      <input name="model" type="text" placeholder="Model" value={carData.model} onChange={handleChange} />
-      <input name="year" type="number" placeholder="Year" value={carData.year} onChange={handleChange} />
-      <input name="price" type="text" placeholder="Price" value={carData.price} onChange={handleChange} />
-      <textarea name="description" placeholder="Description" value={carData.description} onChange={handleChange} />
-
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      
-      <button type="submit" disabled={submitting}>
-        {submitting ? 'Adding...' : 'Add Car'}
-      </button>
+      {/* Form fields for car data */}
+      <input name="make" value={carData.make} onChange={handleChange} placeholder="Make" />
+      <input name="model" value={carData.model} onChange={handleChange} placeholder="Model" />
+      <input name="year" type="number" value={carData.year} onChange={handleChange} placeholder="Year" />
+      <input name="price" type="number" value={carData.price} onChange={handleChange} placeholder="Price" />
+      <textarea name="description" value={carData.description} onChange={handleChange} placeholder="Description" />
+      <input name="image" value={carData.image} onChange={handleChange} placeholder="Image URL" />
+      <button type="submit">Add Car</button>
     </form>
   );
-}
+};
 
 export default AddCarForm;

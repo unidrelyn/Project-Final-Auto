@@ -74,7 +74,9 @@
 
 
 import React, { useState, useEffect } from 'react';
-import mockCars from '../mockData/mockCars.json'; // Import mockCars data
+import mockCars from '../mockData/mockCars.json';
+import { useNavigate } from 'react-router-dom';
+import { useCarList } from '../context/CarListContext';
 
 function EditCarForm({ carId }) {
   const [carData, setCarData] = useState({
@@ -86,12 +88,14 @@ function EditCarForm({ carId }) {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-
+  const [success, setSuccess] = useState(''); 
+  const navigate = useNavigate(); 
+  const { carList, updateCar } = useCarList();
+  
   useEffect(() => {
-    // Find the car data corresponding to the provided carId
-    const car = mockCars.find(car => car.id === carId);
+    const car = mockCars.cars.find(car => car.id === carId);
     if (car) {
-      setCarData(car);
+      setCarData({ ...car });
     } else {
       setError('Car not found.');
     }
@@ -99,10 +103,7 @@ function EditCarForm({ carId }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCarData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    setCarData(prevData => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -110,16 +111,12 @@ function EditCarForm({ carId }) {
     setSubmitting(true);
 
     try {
-      // Update the mockCars data with the edited car data
-      const updatedCars = mockCars.map(car => {
-        if (car.id === carId) {
-          return { ...car, ...carData };
-        }
-        return car;
-      });
-      // Optionally, update the mockCars.json file or manage state in a parent component
+      // Use mockCars.cars to access the array of cars
+      const updatedCars = mockCars.cars.map(car => car.id === carId ? { ...car, ...carData } : car);
       console.log('Updated Cars:', updatedCars);
       setError('');
+      setSuccess('Car details updated successfully!');
+      setTimeout(() => navigate('/listings'), 2000);
     } catch (error) {
       console.error('Error updating the car:', error);
       setError('Failed to update the car. Please try again.');
@@ -130,10 +127,13 @@ function EditCarForm({ carId }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Input fields for car data */}
-      <button type="submit" disabled={submitting}>
-        {submitting ? 'Updating...' : 'Update Car'}
-      </button>
+      <input name="make" value={carData.make} onChange={handleChange} placeholder="Make" />
+      <input name="model" value={carData.model} onChange={handleChange} placeholder="Model" />
+      <input name="year" type="number" value={carData.year} onChange={handleChange} placeholder="Year" />
+      <input name="price" type="number" value={carData.price} onChange={handleChange} placeholder="Price" />
+      <textarea name="description" value={carData.description} onChange={handleChange} placeholder="Description" />
+
+      <button type="submit" disabled={submitting}>{submitting ? 'Updating...' : 'Update Car'}</button>
       {error && <div style={{ color: 'red' }}>{error}</div>}
     </form>
   );
