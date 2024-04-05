@@ -18,7 +18,7 @@ const NavBar = () => {
         <NavLink className="navbar-brand" to="/">
           <img
             src={logo}
-            alt="Car Marketplace Logo"
+            alt="AutoExchange Logo"
             className="home-page-logo"
             style={{ width: "150px" }}
           />
