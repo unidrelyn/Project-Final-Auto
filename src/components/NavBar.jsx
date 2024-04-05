@@ -1,51 +1,93 @@
-
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const NavBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate(); // Use useNavigate hook
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    // Navigate to a search results page, passing the search term as a query parameter
+    e.preventDefault();
     navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
-    setSearchTerm(''); // Optionally clear the search input after submission
+    setSearchTerm("");
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">Home</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <NavLink className="navbar-brand" to="/">
+          <img
+            src={logo}
+            alt="AutoExchange Logo"
+            className="home-page-logo"
+            style={{ width: "150px" }}
+          />
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/listings">Listings</NavLink>
+              <NavLink className="nav-link" to="/listings">
+                Listings
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/about">About</NavLink>
+              <NavLink className="nav-link" to="/about">
+                About
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login">Login</NavLink>
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/signup">Signup</NavLink>
+              <NavLink className="nav-link" to="/signup">
+                Signup
+              </NavLink>
+            </li>
+            {/* Custom dropdown menu */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                More
+              </a>
+              <div
+                className="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <NavLink className="dropdown-item" to="/listings">
+                  Listings
+                </NavLink>
+                <NavLink className="dropdown-item" to="/about">
+                  About
+                </NavLink>
+                <NavLink className="dropdown-item" to="/login">
+                  Login
+                </NavLink>
+                <NavLink className="dropdown-item" to="/signup">
+                  Signup
+                </NavLink>
+              </div>
             </li>
           </ul>
-          <form className="d-flex" onSubmit={handleSearch}>
-            <input 
-              className="form-control me-2" 
-              type="search" 
-              placeholder="Search..." 
-              aria-label="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
