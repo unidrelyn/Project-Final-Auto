@@ -1,4 +1,3 @@
-
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 
@@ -35,7 +34,6 @@
 //   );
 // };
 // export default ListingsPage;
-
 
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
@@ -79,17 +77,15 @@
 
 // export default ListingsPage;
 
-
-import React, { useState, useEffect } from 'react';
-import mockCars from '../mockData/mockCars.json';
-import { useNavigate } from 'react-router-dom';
-import { useCarList } from '../context/CarListContext';
-
+import React, { useState, useEffect } from "react";
+import mockCars from "../mockData/mockCars.json";
+import { useNavigate } from "react-router-dom";
+import { useCarList } from "../context/CarListContext";
 
 const ListingsPage = () => {
   const [carListings, setCarListings] = useState([]);
   const { carList } = useCarList();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -105,23 +101,26 @@ const ListingsPage = () => {
   };
 
   const handleDelete = (carId) => {
-    console.log('Delete car with ID:', carId);
-    const updatedListings = carListings.filter(car => car.id !== carId);
+    console.log("Delete car with ID:", carId);
+    const updatedListings = carListings.filter((car) => car.id !== carId);
     setCarListings(updatedListings);
   };
 
   const handleAddCar = () => {
-    navigate('/add-car'); // Navigate to the "Add Car" page
+    navigate("/add-car"); // Navigate to the "Add Car" page
   };
 
-  const filteredListings = carListings.filter(car =>
-    car.make.toLowerCase().includes(searchTerm) || car.model.toLowerCase().includes(searchTerm)
+  const filteredListings = carListings.filter(
+    (car) =>
+      car.make.toLowerCase().includes(searchTerm) ||
+      car.model.toLowerCase().includes(searchTerm)
   );
 
   return (
     <div className="listings-page-container">
       <h1>Car Listings</h1>
-      <button onClick={handleAddCar}>Add Car</button> {/* Button to navigate to the "Add Car" page */}
+      <button onClick={handleAddCar}>Add Car</button>{" "}
+      {/* Button to navigate to the "Add Car" page */}
       <input
         type="text"
         placeholder="Search by make or model..."
@@ -130,10 +129,16 @@ const ListingsPage = () => {
       />
       <div className="car-listings">
         {filteredListings.length > 0 ? (
-          filteredListings.map(car => (
+          filteredListings.map((car) => (
             <div key={car.id} className="car-listing-item">
-              <img src={car.image} alt={`${car.make} ${car.model}`} className="car-image" />
-              <h2>{car.make} {car.model}</h2>
+              <img
+                src={car.image}
+                alt={`${car.make} ${car.model}`}
+                className="car-image"
+              />
+              <h2>
+                {car.make} {car.model}
+              </h2>
               <p>Year: {car.year}</p>
               <p>Price: ${car.price}</p>
               <p>{car.description}</p>
@@ -144,6 +149,17 @@ const ListingsPage = () => {
         ) : (
           <p>No car listings available.</p>
         )}
+      </div>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
       </div>
     </div>
   );

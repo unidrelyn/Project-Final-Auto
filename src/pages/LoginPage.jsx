@@ -45,14 +45,14 @@
 
 // export default LoginPage;
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -60,21 +60,21 @@ const LoginPage = () => {
 
     // Basic validation
     if (!username || !password) {
-      setError('Please enter both username and password');
+      setError("Please enter both username and password");
       return;
     }
 
     setIsLoading(true);
-    setError('');
+    setError("");
 
     // Place your secure authentication logic here
-    console.log('Login attempt with:', username, password);
+    console.log("Login attempt with:", username, password);
 
     // Simulate login process
     setTimeout(() => {
       setIsLoading(false);
       // If login is successful, use navigate to redirect
-      navigate('/'); // Example redirection after successful login
+      navigate("/"); // Example redirection after successful login
     }, 1000);
   };
 
@@ -104,9 +104,20 @@ const LoginPage = () => {
           />
         </div>
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
+          {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };

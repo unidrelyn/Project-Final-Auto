@@ -13,7 +13,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img
@@ -56,36 +56,39 @@ const NavBar = () => {
                 Signup
               </NavLink>
             </li>
+            {/* Custom dropdown menu */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                More
+              </a>
+              <div
+                className="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <NavLink className="dropdown-item" to="/listings">
+                  Listings
+                </NavLink>
+                <NavLink className="dropdown-item" to="/about">
+                  About
+                </NavLink>
+                <NavLink className="dropdown-item" to="/login">
+                  Login
+                </NavLink>
+                <NavLink className="dropdown-item" to="/signup">
+                  Signup
+                </NavLink>
+              </div>
+            </li>
           </ul>
         </div>
-      </div>
-      {/* Custom dropdown menu */}
-      <div
-        className="dropdown-menu dropdown-menu-end position-absolute w-75"
-        style={{ zIndex: "1000", top: "calc(100% + 10px)", right: "10px" }}
-      >
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/listings">
-              Listings
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/about">
-              About
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
-              Login
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/signup">
-              Signup
-            </NavLink>
-          </li>
-        </ul>
       </div>
     </nav>
   );

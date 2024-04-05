@@ -64,9 +64,8 @@
 
 // export default CarManagementPage;
 
-
-import React, { useState, useEffect } from 'react';
-import mockCars from '../mockData/mockCars.json';
+import React, { useState, useEffect } from "react";
+import mockCars from "../mockData/mockCars.json";
 
 const CarManagementPage = () => {
   const [cars, setCars] = useState([]);
@@ -81,11 +80,11 @@ const CarManagementPage = () => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
         // Filter out the car with the given id
-        const updatedCars = cars.filter(car => car.id !== id);
+        const updatedCars = cars.filter((car) => car.id !== id);
         setCars(updatedCars);
         // Optionally, you can add more robust error handling here
       } catch (error) {
-        console.error('Error deleting car:', error);
+        console.error("Error deleting car:", error);
         // Display error message or handle error appropriately
       }
     }
@@ -108,7 +107,7 @@ const CarManagementPage = () => {
           </tr>
         </thead>
         <tbody>
-          {cars.map(car => (
+          {cars.map((car) => (
             <tr key={car.id}>
               <td>{car.id}</td>
               <td>{car.make}</td>
@@ -117,12 +116,28 @@ const CarManagementPage = () => {
               <td>${car.price}</td>
               <td>{car.description}</td>
               <td>
-                <button className="delete-button" onClick={() => handleDelete(car.id)}>Delete</button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(car.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };
