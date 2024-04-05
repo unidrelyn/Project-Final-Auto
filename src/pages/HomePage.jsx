@@ -1,24 +1,3 @@
-// import React from 'react';
-// import logo from '../assets/388FF278-AF38-42EB-9D93-034B2580752F.png'; // Adjust the path as needed
-
-// const HomePage = () => {
-//   return (
-//     <div>
-//       {/* Displaying the logo */}
-//       <img src={logo} alt="Car Marketplace Logo" />
-
-//       {/* Main heading */}
-//       <h1>Welcome to Our Auto Exchange App</h1>
-
-//       {/* Description */}
-//       <p>Find your perfect car today or list your vehicle to sell.</p>
-
-//       {/* Additional content and components can go here */}
-//     </div>
-//   );
-// };
-
-// export default HomePage;
 
 import React from 'react';
 import logo from '../assets/388FF278-AF38-42EB-9D93-034B2580752F.png'; // Adjust the path as needed

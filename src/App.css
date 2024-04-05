@@ -44,3 +44,8 @@
   color: red;
   font-weight: bold;
 }
+
+.car-image {
+  max-width: 200px; /* Adjust the maximum width as per your requirement */
+  height: auto;
+}
