@@ -1,49 +1,4 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Import useNavigate to navigate programmatically
 
-// const SignupPage = () => {
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const navigate = useNavigate(); // For navigation after signup
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault(); // Prevent default form submission behavior
-
-//     // Here you can implement your signup logic, such as validating user input
-//     // For demonstration purposes, assume signup is successful if username, email, and password are not empty
-//     if (username && email && password) {
-//       // Redirect to the homepage after successful signup
-//       navigate('/');
-//     } else {
-//       // Display an error message or handle signup failure
-//       console.error('Incomplete signup form');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Sign Up</h1>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label>Username:</label>
-//           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-//         </div>
-//         <div>
-//           <label>Email:</label>
-//           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-//         </div>
-//         <div>
-//           <label>Password:</label>
-//           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-//         </div>
-//         <button type="submit">Sign Up</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SignupPage;
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
