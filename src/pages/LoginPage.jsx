@@ -1,49 +1,4 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Correctly imported useNavigate
 
-// const LoginPage = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const navigate = useNavigate(); // Correctly using useNavigate
-
-//   const handleLogin = (e) => {
-//     e.preventDefault();
-//     // Place your authentication logic here
-//     console.log('Login attempt with:', username, password);
-
-//     // If login is successful, use navigate to redirect
-//     navigate('/'); // Correctly using navigate for redirection
-//   };
-
-//   return (
-//     <div>
-//       <h1>Login</h1>
-//       <form onSubmit={handleLogin}>
-//         <div>
-//           <label htmlFor="username">Username:</label>
-//           <input
-//             type="text"
-//             id="username"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </div>
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

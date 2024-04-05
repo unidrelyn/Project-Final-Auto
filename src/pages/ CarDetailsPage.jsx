@@ -1,48 +1,9 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
-// import axios from 'axios';
-
-// const CarDetailsPage = () => {
-//   const { id } = useParams(); // Access the car ID from URL parameters
-//   const [carDetails, setCarDetails] = useState(null);
-
-//   // Fetch car details from the server when the component mounts
-//   useEffect(() => {
-//     const fetchCarDetails = async () => {
-//       try {
-//         const response = await axios.get(`/api/listings/${id}`);
-//         setCarDetails(response.data); // Assuming response.data contains details of the car
-//       } catch (error) {
-//         console.error('Error fetching car details:', error);
-//       }
-//     };
-
-//     fetchCarDetails();
-//   }, [id]); // Re-fetch car details whenever the car ID changes
-
-//   return (
-//     <div>
-//       <h1>Car Details</h1>
-//       {carDetails ? (
-//         <div>
-//           <h2>{carDetails.title}</h2>
-//           <p>Price: ${carDetails.price}</p>
-//           <p>Year: {carDetails.year}</p>
-//           <p>Mileage: {carDetails.mileage}</p>
-//           {/* Additional car details can go here */}
-//         </div>
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// };
-
 // export default CarDetailsPage;
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import mockCarsData from "../mockData/mockCars.json"; // Import mock cars data
 import NotFoundPage from "./NotFoundPage"; // Import a NotFoundPage component if needed
+import axios from 'axios';
 
 const CarDetailsPage = () => {
   const { id } = useParams();
@@ -50,19 +11,14 @@ const CarDetailsPage = () => {
   const [error, setError] = useState(null); // Added for error handling
 
   useEffect(() => {
-    const fetchCarDetails = () => {
+    const fetchCarDetails = async () => {
       try {
-        const car = mockCarsData.find((car) => car.id === parseInt(id));
-        if (car) {
-          setCarDetails(car);
-        } else {
-          // If car is not found, set carDetails to null and log an error or handle appropriately
-          setCarDetails(null);
-          setError("Car not found"); // Example error handling
-        }
+
+        const response = await axios.get(`http://localhost:3000/cars/${id}`);
+        setCarDetails(response.data);
       } catch (err) {
-        setError(err.message); // More robust error handling
-        console.error("Error fetching car details:", err);
+        setError('Car not found'); // Example error handling
+        console.error('Error fetching car details:', err);
       }
     };
 
