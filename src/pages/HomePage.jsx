@@ -1,9 +1,7 @@
-
 import React from "react";
 import HeroWide from "../assets/HeroWide.jpg";
 import "../App.css"; // Import CSS file for HomePage styling
-import logo from '../assets/388FF278-AF38-42EB-9D93-034B2580752F.png'; // Adjust the path as needed
-
+import logo from "../assets/388FF278-AF38-42EB-9D93-034B2580752F.png"; // Adjust the path as needed
 
 const HomePage = () => {
   return (
