@@ -1,5 +1,3 @@
-// export default App;
-
 
 
 import React from 'react';
@@ -24,12 +22,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <CartProvider>
+      <CarListProvider>
     <Router>
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+      
         <Route path="/listings" element={<ListingsPage />} />
-
+        
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
         {/* Add route for the signup page */}
@@ -42,7 +42,9 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
+    </CarListProvider>
     </CartProvider>
+
 
   );
 }
