@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-
+import React, { createContext, useContext, useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 // Create a context
 const AuthContext = createContext();
 
@@ -7,17 +7,24 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // State to manage the authentication status
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedLoggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(storedLoggedInStatus);
+  }, []);
   // Function to handle login
   const login = () => {
-    // Perform your login logic here, e.g., validate credentials, set token, etc.
     setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
+    navigate('/'); 
   };
 
   // Function to handle logout
   const logout = () => {
-    // Perform your logout logic here, e.g., clear token, reset state, etc.
     setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login');
   };
 
   // Value to be provided by the context
@@ -27,7 +34,6 @@ export const AuthProvider = ({ children }) => {
     logout
   };
 
-  // Provide the context value to its children
   return (
     <AuthContext.Provider value={authContextValue}>
       {children}
@@ -36,9 +42,6 @@ export const AuthProvider = ({ children }) => {
 };
 
 // Custom hook to use the AuthContext
-export const useAuth = () => {
-  // Use useContext hook to access the AuthContext
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
-export default AuthContext; // Export AuthContext for useContext usage
+export default AuthContext;
