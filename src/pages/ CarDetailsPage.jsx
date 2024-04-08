@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import NotFoundPage from './NotFoundPage'; // Import a NotFoundPage component if needed
-
+import NotFoundPage from './NotFoundPage'; 
 const CarDetailsPage = () => {
   const { id } = useParams();
   const [carDetails, setCarDetails] = useState(null);
-  const [error, setError] = useState(null); // Added for error handling
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchCarDetails = async () => {
@@ -24,9 +23,7 @@ const CarDetailsPage = () => {
     fetchCarDetails();
   }, [id]);
 
-  // Remember to validate/sanitize data when integrating with real data sources or user inputs to prevent XSS attacks
-  // Consider adding CSS classes or inline styles for better styling and responsiveness
-  // Use more semantic HTML where appropriate for better accessibility
+  
   return (
     <div className="car-details-container"> {/* Example CSS class */}
       {error && <p className="error-message">{error}</p>} {/* Display error message if any */}

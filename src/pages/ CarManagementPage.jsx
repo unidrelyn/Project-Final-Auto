@@ -12,25 +12,25 @@ const CarManagementPage = () => {
 
   const fetchCars = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/cars'); // Adjust URL based on your backend API
+      const response = await axios.get('http://localhost:3000/cars'); 
       setCars(response.data);
     } catch (error) {
       console.error('Error fetching cars:', error);
-      // Handle error appropriately, e.g., display an error message to the user
+      
     }
   };
 
   const handleDelete = async (id) => {
-    // Simple confirmation dialog before deleting
+   
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`http://localhost:3000/cars/${id}`); // Adjust URL based on your backend API
+        await axios.delete(`http://localhost:3000/cars/${id}`); 
         const updatedCars = cars.filter(car => car.id !== id);
         setCars(updatedCars);
         console.log('Car deleted successfully.');
       } catch (error) {
         console.error('Error deleting car:', error);
-        // Handle error appropriately, e.g., display an error message to the user
+       
       }
     }
   };

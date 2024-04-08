@@ -13,7 +13,8 @@ import { CarListProvider } from './context/CarListContext';
 import AddCarForm from './components/AddCarForm';
 import CartPage from './pages/CartPage';
 import { CartProvider } from './context/CartContext';
-//import CheckoutPage from './pages/CheckoutPage';
+import CheckoutPage from './pages/CheckoutPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,8 +34,10 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/edit/:carId" element={<EditCarForm />} />
         <Route path="/add-car" element={<AddCarForm />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         {/* Define other routes */}
         <Route path="/cart" element={<CartPage />} /> {/* Define route for the cart page */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
     </CartProvider>

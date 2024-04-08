@@ -1,5 +1,6 @@
 
 
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -22,15 +23,18 @@ const LoginPage = () => {
     setIsLoading(true);
     setError('');
 
-    // Place your secure authentication logic here
-    console.log('Login attempt with:', username, password);
-
-    // Simulate login process
-    setTimeout(() => {
+    try {
+      
+      setTimeout(() => {
+        setIsLoading(false);
+        // Redirect to home page after successful login
+        navigate('/');
+      }, 1000);
+    } catch (error) {
+      console.error('Login error:', error);
       setIsLoading(false);
-      // If login is successful, use navigate to redirect
-      navigate('/'); // Example redirection after successful login
-    }, 1000);
+      setError('Failed to login. Please try again.');
+    }
   };
 
   return (
@@ -46,6 +50,7 @@ const LoginPage = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            aria-label="Username"
           />
         </div>
         <div className="form-group">
@@ -56,6 +61,7 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-label="Password"
           />
         </div>
         <button type="submit" disabled={isLoading}>
