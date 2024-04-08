@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const Checkout = ({ cartItems }) => {
- 
+  const { clearCart } = useCart();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -73,7 +77,9 @@ const Checkout = ({ cartItems }) => {
       const response = await axios.post('http://localhost:3000/orders', orderData);
       console.log('Order placed successfully:', response.data);
       alert('Order placed successfully!');
-     
+
+      clearCart();
+      navigate('/');
     } catch (error) {
       console.error('Error placing order:', error);
       alert('Error placing order. Please try again.');
