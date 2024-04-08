@@ -15,7 +15,7 @@ import CartPage from './pages/CartPage';
 import { CartProvider } from './context/CartContext';
 import CheckoutPage from './pages/CheckoutPage';
 import NotFoundPage from './pages/NotFoundPage';
-
+import Footer from './components/Footer';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -41,6 +41,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} /> {/* Define route for the cart page */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </Router>
     </CarListProvider>
     </CartProvider>
