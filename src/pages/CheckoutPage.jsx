@@ -2,6 +2,8 @@ import React from 'react';
 import Checkout from '../components/Checkout'; 
 import { useCart } from '../context/CartContext'; 
 
+
+
 const CheckoutPage = () => {
   const { cartItems, removeFromCart } = useCart(); 
 
