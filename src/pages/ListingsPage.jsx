@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-import mockCars from "../mockData/mockCars.json";
 import { useNavigate } from "react-router-dom";
 import { useCarList } from "../context/CarListContext";
 import axios from 'axios';
@@ -9,10 +8,8 @@ import { useCart } from '../context/CartContext';
 
 const ListingsPage = () => {
   const [carListings, setCarListings] = useState([]);
-
   const { carList } = useCarList();
   const [searchTerm, setSearchTerm] = useState("");
-
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -118,5 +115,5 @@ const ListingsPage = () => {
   </div>
 );
 };
-
 export default ListingsPage;
+
