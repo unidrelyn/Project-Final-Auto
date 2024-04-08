@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios for making HTTP requests
+import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
 
 const AddCarForm = () => {
@@ -22,12 +22,12 @@ const AddCarForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to add the new car data to the backend
+     
       await axios.post('http://localhost:3000/cars', carData);
-      navigate('/listings'); // Redirect to the listings page after successfully adding the car
+      navigate('/listings'); 
     } catch (error) {
       console.error('Error adding car:', error);
-      // Handle error (e.g., display a message to the user)
+      
     }
   };
 

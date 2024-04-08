@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const Checkout = ({ cartItems, onPlaceOrder }) => {
-  // State to manage form data
+const Checkout = ({ cartItems }) => {
+ 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -9,7 +10,7 @@ const Checkout = ({ cartItems, onPlaceOrder }) => {
     paymentMethod: ''
   });
 
-  // Function to handle form input changes
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
@@ -54,7 +55,32 @@ const Checkout = ({ cartItems, onPlaceOrder }) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
+  const onPlaceOrder = async () => {  // New function for placing the order
+    const orderData = {
+      customerInfo: {
+        fullName: formData.fullName,
+        email: formData.email,
+        address: formData.address,
+      },
+      items: cartItems.map(item => ({
+        carId: item.id, 
+        quantity: item.quantity || 1  // Assuming you're handling quantity in cartItems
+      })),
+      paymentMethod: formData.paymentMethod
+    };
 
+    try {
+      const response = await axios.post('http://localhost:3000/orders', orderData);
+      console.log('Order placed successfully:', response.data);
+      alert('Order placed successfully!');
+     
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Error placing order. Please try again.');
+    }
+  };
+
+  
   return (
     <div className="checkout">
       <h2>Checkout</h2>

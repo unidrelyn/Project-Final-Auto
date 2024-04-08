@@ -1,8 +1,13 @@
+;
+
+
 import React from 'react';
-import { useCart } from '../context/CartContext'; // Adjust the path as necessary
+import { useNavigate } from 'react-router-dom'; 
+import { useCart } from '../context/CartContext'; 
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, proceedToCheckout } = useCart();
+  const navigate = useNavigate(); 
+  const { cartItems, removeFromCart } = useCart();
 
   return (
     <div>
@@ -11,12 +16,7 @@ const CartPage = () => {
         <ul>
           {cartItems.map((item) => (
             <li key={item.id} style={{ listStyleType: 'none', marginBottom: '20px' }}>
-              {/* Displaying the car image */}
-              <img
-                src={item.imageUrl || '/path/to/default-image.png'} // Fallback to a default image if imageUrl is not available
-                alt={`${item.make} ${item.model}`}
-                style={{ maxWidth: '200px', height: 'auto' }}
-              />
+              <img src={item.image} alt={`${item.make} ${item.model}`} style={{ maxWidth: '200px', height: 'auto' }} />
               <h2>{item.make} {item.model}</h2>
               <p>Price: ${item.price}</p>
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
@@ -26,7 +26,7 @@ const CartPage = () => {
       ) : (
         <p>Your cart is empty.</p>
       )}
-      <button onClick={proceedToCheckout}>Proceed to Checkout</button>
+      <button onClick={() => navigate('/checkout')}>Proceed to Checkout</button>
     </div>
   );
 };

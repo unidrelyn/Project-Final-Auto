@@ -11,7 +11,7 @@ function DeleteCarConfirmation({ carId, onClose, onDelete }) {
     setIsDeleting(true);
 
     try {
-      await onDelete(carId); // onDelete is now a prop passed from the parent component
+      await onDelete(carId); 
     } catch (error) {
       console.error('Error deleting the car:', error);
       setError('Failed to delete the car. Please try again.');

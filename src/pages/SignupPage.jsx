@@ -1,13 +1,16 @@
 
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -23,13 +26,11 @@ const SignupPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation example
-    if (
-      !formData.username ||
-      !formData.email.includes("@") ||
-      formData.password.length < 8
-    ) {
-      setError("Please ensure all fields are valid.");
+
+    // Basic validation
+    if (!formData.username || !formData.email.includes('@') || formData.password.length < 8 || formData.password !== formData.confirmPassword) {
+      setError('Please ensure all fields are valid.');
+
       return;
     }
 
@@ -81,6 +82,10 @@ const SignupPage = () => {
             required
             minLength="8"
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required minLength="8" />
         </div>
         <button type="submit">Sign Up</button>
       </form>
