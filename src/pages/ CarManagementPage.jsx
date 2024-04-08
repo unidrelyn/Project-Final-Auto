@@ -1,7 +1,7 @@
 
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 
 const CarManagementPage = () => {
   const [cars, setCars] = useState([]);
@@ -52,7 +52,7 @@ const CarManagementPage = () => {
           </tr>
         </thead>
         <tbody>
-          {cars.map(car => (
+          {cars.map((car) => (
             <tr key={car.id}>
               <td>{car.id}</td>
               <td>{car.make}</td>
@@ -61,12 +61,28 @@ const CarManagementPage = () => {
               <td>${car.price}</td>
               <td>{car.description}</td>
               <td>
-                <button className="delete-button" onClick={() => handleDelete(car.id)}>Delete</button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(car.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };

@@ -1,15 +1,21 @@
 
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import mockCars from "../mockData/mockCars.json";
+import { useNavigate } from "react-router-dom";
+import { useCarList } from "../context/CarListContext";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
 import CarListing from '../components/CarListing';
 import { useCart } from '../context/CartContext';
+
 const ListingsPage = () => {
   const [carListings, setCarListings] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const { carList } = useCarList();
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
   const { addToCart } = useCart();
+
   useEffect(() => {
     fetchCarListings();
   }, []);
@@ -30,6 +36,7 @@ const ListingsPage = () => {
   const handleEdit = (carId) => {
     navigate(`/edit/${carId}`);
   };
+
 
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
@@ -59,19 +66,36 @@ const ListingsPage = () => {
     searchTerm === '' || 
     (car.make && car.make.toLowerCase().includes(searchTerm)) || 
     (car.model && car.model.toLowerCase().includes(searchTerm))
+
   );
 
   return (
     <div className="listings-page-container">
+
     <h1>Car Listings</h1>
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+
       <input
         type="text"
         placeholder="Search by make or model..."
         className="search-bar"
         onChange={handleSearchChange}
       />
+
       <button onClick={handleAddCar} className="add-car-button">Add Car</button>
+
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
+
     </div>
     <div className="car-listings">
       {filteredListings.length > 0 ? (

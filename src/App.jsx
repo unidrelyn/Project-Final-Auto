@@ -1,3 +1,5 @@
+// export default App;
+
 
 
 import React from 'react';
@@ -41,8 +43,8 @@ function App() {
       </Routes>
     </Router>
     </CartProvider>
+
   );
-  
 }
 
 export default App;

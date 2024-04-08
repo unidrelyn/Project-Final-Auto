@@ -1,14 +1,14 @@
 
 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -16,12 +16,13 @@ const LoginPage = () => {
 
     // Basic validation
     if (!username || !password) {
-      setError('Please enter both username and password');
+      setError("Please enter both username and password");
       return;
     }
 
     setIsLoading(true);
-    setError('');
+    setError("");
+
 
     try {
       
@@ -35,6 +36,7 @@ const LoginPage = () => {
       setIsLoading(false);
       setError('Failed to login. Please try again.');
     }
+
   };
 
   return (
@@ -65,9 +67,20 @@ const LoginPage = () => {
           />
         </div>
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
+          {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };
