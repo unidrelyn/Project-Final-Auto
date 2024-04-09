@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <title>Vite + React</title>
-</head>
-<body data-bs-theme="dark">
-  <div id="root"></div>
-  <button onclick="myFunction()">Toggle Theme</button> <!-- Add a button to toggle theme -->
-  <script type="module" src="/src/main.jsx"></script>
-  <!-- Bootstrap JS (including jQuery) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function myFunction() {
-      var element = document.body;
-      element.dataset.bsTheme = element.dataset.bsTheme === "light" ? "dark" : "light";
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/src/assets/favicon.png" type="img/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>AutoExchange</title>
+  </head>
+  <body data-bs-theme="dark">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function myFunction() {
+        var element = document.body;
+        element.dataset.bsTheme =
+          element.dataset.bsTheme == "light" ? "dark" : "light";
+      }
+    </script>
+  </body>
 </html>
