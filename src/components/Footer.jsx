@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function Footer() {
   return (
@@ -27,25 +27,25 @@ function Footer() {
 
 // Example inline styles, adjust as needed
 const footerStyle = {
-  background: '#333',
-  color: '#fff',
-  padding: '20px 0',
-  fontSize: '14px',
+  background: "#333",
+  color: "#fff",
+  padding: "20px 0",
+  fontSize: "14px",
 };
 
 const containerStyle = {
-  display: 'flex',
-  justifyContent: 'space-around',
-  padding: '0 10%',
+  display: "flex",
+  justifyContent: "space-around",
+  padding: "0 10%",
 };
 
 const sectionStyle = {
-  margin: '0 20px',
+  margin: "0 20px",
 };
 
 const copyRightStyle = {
-  textAlign: 'center',
-  marginTop: '20px',
+  textAlign: "center",
+  marginTop: "20px",
 };
 
 export default Footer;
