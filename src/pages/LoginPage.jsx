@@ -1,8 +1,5 @@
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -22,6 +19,7 @@ const LoginPage = () => {
   
     setIsLoading(true);
     setError("");
+
   
     try {
       // Simulate login process
@@ -31,21 +29,24 @@ const LoginPage = () => {
         navigate('/listings');
         // Call onLoginSuccess to update authentication state in parent component
         onLoginSuccess();
+
       }, 1000);
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       setIsLoading(false);
-      setError('Failed to login. Please try again.');
+      setError("Failed to login. Please try again.");
     }
   };
 
   return (
     <div className="login-page-container">
       <h1>Login</h1>
-      {error && <p className="error-message">{error}</p>}
+      {error && <p className="error-message m-2">{error}</p>}
       <form onSubmit={handleLogin} className="login-form">
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
+        <div className="form-group m-2">
+          <label className="m-3" htmlFor="username">
+            Username:
+          </label>
           <input
             type="text"
             id="username"
@@ -55,8 +56,10 @@ const LoginPage = () => {
             aria-label="Username"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <div className="form-group m-2">
+          <label htmlFor="password" className="m-3">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -66,7 +69,11 @@ const LoginPage = () => {
             aria-label="Password"
           />
         </div>
-        <button type="submit" disabled={isLoading}>
+        <button
+          type="submit"
+          className="btn btn-primary mt-5 mb-5"
+          disabled={isLoading}
+        >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>

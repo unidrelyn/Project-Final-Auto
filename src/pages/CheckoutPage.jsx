@@ -1,35 +1,44 @@
-import React from 'react';
-import Checkout from '../components/Checkout'; 
-import { useCart } from '../context/CartContext'; 
-
-
+import React from "react";
+import Checkout from "../components/Checkout";
+import { useCart } from "../context/CartContext";
 
 const CheckoutPage = () => {
-  const { cartItems, removeFromCart } = useCart(); 
+  const { cartItems, removeFromCart } = useCart();
 
   // Function to handle the placement of an order
   const handlePlaceOrder = (formData, items) => {
-    console.log('Order placed with:', formData, items);
-   
-    
-   
-    items.forEach(item => removeFromCart(item.id));
+    console.log("Order placed with:", formData, items);
 
-   
-    alert('Thank you for your order!'); 
+    items.forEach((item) => removeFromCart(item.id));
+
+    alert("Thank you for your order!");
   };
 
   return (
-    <div className="checkout-page">
+    <div
+      className="checkout-page-page-container mx-auto"
+      style={{ maxWidth: "400px" }}
+    >
       <h1>Checkout</h1>
       {/* Display a summary of cart items */}
       <div className="cart-summary">
-        <h2>Cart Summary</h2>
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>{item.make} {item.model} - Quantity: {item.quantity}</li>
-          ))}
-        </ul>
+        <h3>Cart Summary</h3>
+        <div className="col">
+          <ul style={{ listStyleType: "none" }}>
+            {cartItems.map((item) => (
+              <li className="col d-flex" key={item.id}>
+                <img
+                  className="m-4"
+                  src={item.image}
+                  style={{ width: "100px" }}
+                  alt={`${item.make} ${item.model}`}
+                />
+                {item.make} <br />
+                {item.model} <br /> Quantity {item.quantity}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       {/* Checkout form */}
       <Checkout cartItems={cartItems} onPlaceOrder={handlePlaceOrder} />
