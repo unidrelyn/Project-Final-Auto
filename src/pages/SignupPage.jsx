@@ -39,7 +39,7 @@ const SignupPage = () => {
     // Simulate successful signup
     setTimeout(() => {
       setError("");
-      navigate("/"); // Redirect to homepage on successful signup
+      navigate('/listings');
     }, 1000);
   };
 

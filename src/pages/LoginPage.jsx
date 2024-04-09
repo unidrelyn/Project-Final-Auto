@@ -11,32 +11,32 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (e) => { // Add 'e' as parameter
+    e.preventDefault(); // Prevent form submission
+  
     // Basic validation
     if (!username || !password) {
       setError("Please enter both username and password");
       return;
     }
-
+  
     setIsLoading(true);
     setError("");
-
-
+  
     try {
-      
+      // Simulate login process
       setTimeout(() => {
         setIsLoading(false);
         // Redirect to home page after successful login
-        navigate('/');
+        navigate('/listings');
+        // Call onLoginSuccess to update authentication state in parent component
+        onLoginSuccess();
       }, 1000);
     } catch (error) {
       console.error('Login error:', error);
       setIsLoading(false);
       setError('Failed to login. Please try again.');
     }
-
   };
 
   return (

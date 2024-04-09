@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
@@ -20,18 +20,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  console.log('Is authenticated:', isAuthenticated);
   return (
     <CartProvider>
       <CarListProvider>
         <Router>
-          <NavBar />
+          <NavBar isAuthenticated={isAuthenticated} />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/listings" element={<ListingsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             {/* Add route for the signup page */}
-            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/signup"
+              element={<SignupPage setIsAuthenticated={setIsAuthenticated} />}
+            />
+            
             <Route path="/edit/:carId" element={<EditCarForm />} />
             <Route path="/add-car" element={<AddCarForm />} />
             <Route path="/checkout" element={<CheckoutPage />} />
