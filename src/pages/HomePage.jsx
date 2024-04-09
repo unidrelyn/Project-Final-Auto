@@ -2,7 +2,7 @@ import React from "react";
 import HeroWide from "../assets/HeroWide.jpg";
 import "../App.css"; // Import CSS file for HomePage styling
 import logo from "../assets/388FF278-AF38-42EB-9D93-034B2580752F.png"; // Adjust the path as needed
-
+import { NavLink } from "react-router-dom";
 const HomePage = () => {
   return (
     <div className="home-page-container ">
@@ -20,14 +20,14 @@ const HomePage = () => {
             Discover your ideal car today or list your vehicle for sale with
             ease.
           </p>
-          {/* Example of an engagement feature: a search bar */}
-          <div className="search-bar-container d-flex justify-content-center">
-            <input
-              type="text"
-              placeholder="Search for cars..."
-              className="search-bar form-control"
-            />
-            <button className="search-button btn btn-primary">Search</button>
+             {/* Add login and signup buttons */}
+             <div className="d-flex justify-content-center">
+            <NavLink to="/login" className="btn btn-primary me-3">
+              Login
+            </NavLink>
+            <NavLink to="/signup" className="btn btn-secondary">
+              Signup
+            </NavLink>
           </div>
         </div>
       </div>
