@@ -4,7 +4,7 @@ import { useCarList } from "../context/CarListContext";
 import axios from "axios";
 import CarListing from "../components/CarListing";
 import { useCart } from "../context/CartContext";
-import AboutPageWide02 from "../assets/AboutPageWide02.jpg"; // Import your AboutPageWide
+import AboutPageWide02 from "../assets/AboutPageWide02.jpg";
 
 const ListingsPage = () => {
   const [carListings, setCarListings] = useState([]);
@@ -69,8 +69,7 @@ const ListingsPage = () => {
 
   return (
     <div className="hero-container position-relative">
-      <div className="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50"></div>
-
+      <div className="position-absolute top-0 start-0 w-100 h-375px bg-black opacity-50"></div>
       <img
         src={AboutPageWide02}
         alt="Car Image"
@@ -80,6 +79,7 @@ const ListingsPage = () => {
       <div
         className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
         style={{
+          zIndex: "1", // Set a higher z-index for the overlay content
           paddingTop: "200px",
           "@media (minWidth: 576px)": { paddingTop: "200px" },
         }}
@@ -90,7 +90,7 @@ const ListingsPage = () => {
       <div className="listings-page-container">
         <div
           className="d-flex justify-content-center align-items-center p-5 m-2"
-          style={{ gap: "20px" }}
+          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
         >
           <input
             type="text"
