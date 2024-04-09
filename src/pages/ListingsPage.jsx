@@ -128,7 +128,10 @@ const ListingsPage = () => {
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
               <div key={car.id} className="col">
-                <div className="card" style={{ width: "18rem" }}>
+                <div
+                  className="card m-4 p-1 d-flex justify-content-center"
+                  style={{ width: "18rem" }}
+                >
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
