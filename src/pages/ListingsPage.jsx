@@ -129,13 +129,13 @@ const ListingsPage = () => {
             filteredListings.map((car) => (
               <div key={car.id} className="col">
                 <div
-                  className="card m-4 p-1 d-flex justify-content-center"
+                  className="card m-4  p-3 d-flex justify-content-center"
                   style={{ width: "18rem" }}
                 >
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
-                    className="card-img-top"
+                    className="card-img-top mx-auto" // Center the image horizontally
                     style={{ maxWidth: "200px" }}
                   />
                   <h5>
