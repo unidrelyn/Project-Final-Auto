@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import Axios library
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const SignupPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -33,14 +34,27 @@ const SignupPage = () => {
       return;
     }
 
-    // Implement secure signup logic here
-    console.log("Signup attempt with:", formData);
+    try {
+      // Make HTTP POST request to signup endpoint
+      const response = await axios.post("http://localhost:5005/auth/signup", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
 
-    // Simulate successful signup
-    setTimeout(() => {
-      setError("");
-      navigate("/listings");
-    }, 1000);
+
+      // Assuming your backend returns a success message upon successful signup
+      const { message } = response.data;
+
+      // Show success message (optional)
+      alert(message);
+
+      // Redirect to listings page after successful signup
+      navigate('/listings');
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("Failed to signup. Please try again.");
+    }
   };
 
   return (
