@@ -8,28 +8,27 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => { // Add 'e' as parameter
+  const handleLogin = async (e) => {
+    // Add 'e' as parameter
     e.preventDefault(); // Prevent form submission
-  
+
     // Basic validation
     if (!username || !password) {
       setError("Please enter both username and password");
       return;
     }
-  
+
     setIsLoading(true);
     setError("");
 
-  
     try {
       // Simulate login process
       setTimeout(() => {
         setIsLoading(false);
         // Redirect to home page after successful login
-        navigate('/listings');
+        navigate("/listings");
         // Call onLoginSuccess to update authentication state in parent component
         onLoginSuccess();
-
       }, 1000);
     } catch (error) {
       console.error("Login error:", error);
@@ -39,7 +38,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page-container">
+    <div className="login-page-container mx-auto" style={{ width: "400px" }}>
       <h1>Login</h1>
       {error && <p className="error-message m-2">{error}</p>}
       <form onSubmit={handleLogin} className="login-form">
@@ -54,6 +53,8 @@ const LoginPage = () => {
             onChange={(e) => setUsername(e.target.value)}
             required
             aria-label="Username"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <div className="form-group m-2">
@@ -67,6 +68,8 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-label="Password"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <button

@@ -39,7 +39,7 @@ const SignupPage = () => {
     // Simulate successful signup
     setTimeout(() => {
       setError("");
-      navigate('/listings');
+      navigate("/listings");
     }, 1000);
   };
 
@@ -62,7 +62,7 @@ const SignupPage = () => {
             value={formData.username}
             onChange={handleChange}
             required
-            className="input-group input-group-sm mb-3" // Apply a custom class
+            className="form-control smaller-input" // Apply a custom class
           />
         </div>
         <div className="form-group">

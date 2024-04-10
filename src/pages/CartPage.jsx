@@ -59,7 +59,7 @@ const CartPage = () => {
       )}
       <button
         onClick={() => navigate("/checkout")}
-        className="btn btn-primary mt-2 mb-5"
+        className="btn btn-primary mt-2 mb-5 "
         style={{
           backgroundColor: "#7749F8",
           color: "white",

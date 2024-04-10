@@ -20,9 +20,9 @@ const HomePage = () => {
             Discover your ideal car today or list your vehicle for sale with
             ease.
           </p>
-             {/* Add login and signup buttons */}
-             <div className="d-flex justify-content-center">
-            <NavLink to="/login" className="btn btn-primary me-3">
+          {/* Add login and signup buttons */}
+          <div className="d-flex justify-content-center">
+            <NavLink to="/login" className="btn btn-ae-primary me-3">
               Login
             </NavLink>
             <NavLink to="/signup" className="btn btn-secondary">
