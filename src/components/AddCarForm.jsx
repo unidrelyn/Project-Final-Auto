@@ -43,7 +43,7 @@ const AddCarForm = ({ setShow, show }) => {
 
 		setValidated(true);
 		try {
-			await axios.post("http://localhost:3000/cars", carData);
+			await axios.post("https://projectfinalback.adaptable.app/api/cars", carData);
 			navigate("/listings");
 		} catch (error) {
 			console.error("Error adding car:", error);

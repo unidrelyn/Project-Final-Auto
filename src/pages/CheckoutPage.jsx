@@ -16,7 +16,7 @@ const CheckoutPage = () => {
 
   return (
     <div
-      className="checkout-page-page-container mx-auto"
+      className="checkout-page-page-container mx-auto vh-100"
       style={{ maxWidth: "400px" }}
     >
       <h1>Checkout</h1>

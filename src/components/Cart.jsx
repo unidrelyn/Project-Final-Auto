@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import EmptyCart from "../assets/EmptyC.svg";
 
 const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) => {
   const handleUpdateQuantity = (itemId, quantity) => {
@@ -10,7 +11,9 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) => {
   };
 
   const handleCheckout = () => {
-    const confirmed = window.confirm('Are you sure you want to proceed to checkout?');
+    const confirmed = window.confirm(
+      "Are you sure you want to proceed to checkout?"
+    );
     if (confirmed) {
       onCheckout();
     }
@@ -21,15 +24,19 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) => {
       <h2>Shopping Cart</h2>
       {cartItems.length > 0 ? (
         <>
-          {cartItems.map(item => (
+          {cartItems.map((item) => (
             <div key={item.id} className="cart-item">
-              <h3>{item.make} {item.model}</h3>
+              <h3>
+                {item.make} {item.model}
+              </h3>
               <p>Price: ${item.price}</p>
               <input
                 type="number"
                 min="1"
                 value={item.quantity}
-                onChange={(e) => handleUpdateQuantity(item.id, parseInt(e.target.value))}
+                onChange={(e) =>
+                  handleUpdateQuantity(item.id, parseInt(e.target.value))
+                }
               />
               <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
             </div>

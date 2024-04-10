@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import Axios library
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -19,12 +20,12 @@ const SignupPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation
     if (
-      !formData.username ||
+      !formData.name ||
       !formData.email.includes("@") ||
       formData.password.length < 8 ||
       formData.password !== formData.confirmPassword
@@ -33,36 +34,48 @@ const SignupPage = () => {
       return;
     }
 
-    // Implement secure signup logic here
-    console.log("Signup attempt with:", formData);
+    try {
+      // Make HTTP POST request to signup endpoint
+      const response = await axios.post("http://localhost:5005/auth/signup", {
+        name: formData.name, 
+        email: formData.email,
+        password: formData.password,
+      });
 
-    // Simulate successful signup
-    setTimeout(() => {
-      setError("");
-      navigate('/listings');
-    }, 1000);
+      // Assuming your backend returns a success message upon successful signup
+      const { message } = response.data;
+
+      // Show success message (optional)
+      alert(message);
+
+      // Redirect to listings page after successful signup
+      navigate("/listings");
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("Failed to signup. Please try again.");
+    }
   };
 
   return (
     <div
-      className="signup-page-container mx-auto"
+      className="signup-page-container mx-auto vh-100"
       style={{ maxWidth: "400px" }}
     >
       <h1>Sign Up</h1>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
-          <label htmlFor="username" className="form-label">
+          <label htmlFor="name" className="form-label">
             Username:
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
-            className="input-group input-group-sm mb-3" // Apply a custom class
+            className="form-control smaller-input" // Apply a custom class
           />
         </div>
         <div className="form-group">
@@ -109,7 +122,7 @@ const SignupPage = () => {
             className="form-control smaller-input" // Apply a custom class
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-5 mb-5">
+        <button type="submit" className="btn btn-ae-primary mt-5 mb-5">
           Sign Up
         </button>
       </form>

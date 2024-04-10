@@ -1,59 +1,63 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Ensure this path matches your file structure
 
-const LoginPage = () => {
-  const [username, setUsername] = useState("");
+export const LoginPage = () => {
+  const [email, setEmail] = useState(""); // Use email for login identifier
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading status
+  const { authenticateUser } = useContext(AuthContext); // Destructure only what you need from context
+  const navigate = useNavigate(); // 'nav' changed to 'navigate' for clarity
 
-  const handleLogin = async (e) => { // Add 'e' as parameter
-    e.preventDefault(); // Prevent form submission
-  
-    // Basic validation
-    if (!username || !password) {
-      setError("Please enter both username and password");
-      return;
-    }
-  
-    setIsLoading(true);
-    setError("");
+  // Handle form submission
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setIsLoading(true); // Indicate loading
+    setError(null); // Reset any existing errors
 
-  
     try {
-      // Simulate login process
-      setTimeout(() => {
-        setIsLoading(false);
-        // Redirect to home page after successful login
-        navigate('/listings');
-        // Call onLoginSuccess to update authentication state in parent component
-        onLoginSuccess();
+      const response = await axios.post(
+        "http://localhost:5005/auth/login",
+        { email, password } // Use the state variables directly
+      );
 
-      }, 1000);
-    } catch (error) {
-      console.error("Login error:", error);
-      setIsLoading(false);
+      console.log("You logged in", response.data);
+      localStorage.setItem("authToken", response.data.authToken); // Assuming 'authToken' is the correct key
+      await authenticateUser(); // Re-authenticate the user after login
+      navigate("/listings"); // Ensure this route exists in your app
+      setIsLoading(false); // Reset loading status
+    } catch (err) {
+
+      console.error("There was an error logging in",err);
+
       setError("Failed to login. Please try again.");
+      setIsLoading(false); // Reset loading status even in case of error
     }
   };
 
   return (
-    <div className="login-page-container">
+    <div
+      className="login-page-container mx-auto vh-100"
+      style={{ width: "400px" }}
+    >
       <h1>Login</h1>
       {error && <p className="error-message m-2">{error}</p>}
       <form onSubmit={handleLogin} className="login-form">
         <div className="form-group m-2">
-          <label className="m-3" htmlFor="username">
-            Username:
+          <label htmlFor="email" className="m-3">
+            Email:
           </label>
           <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            aria-label="Username"
+            aria-label="Email"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <div className="form-group m-2">
@@ -67,16 +71,19 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-label="Password"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <button
           type="submit"
-          className="btn btn-primary mt-5 mb-5"
+          className="btn btn-ae-primary mt-5 mb-5"
           disabled={isLoading}
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
+
       {/* Dark/Light Mode Switch */}
       <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
         <input

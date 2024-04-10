@@ -6,6 +6,21 @@ body,
   width: 100%;
   height: 100%;
   text-align: center;
+  --primary-btn-bg: var(--bs-indigo);
+  --text-color-dark: #dee2e6; /* Custom text color for dark mode */
+  --bg-color-light: #e9ecef; /* Custom background color for light mode */
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --ae-purple-700: #432874;
+  --ae-purple-800: #2c1a4d;
+  --ae-neutral-100: #f8f9fa;
+  --ae-gray-200: #e9ecef;
+  --ae-gray-300: #dee2e6;
+  --ae-gray-500: #adb5bd;
+  --ae-gray-600: #6c757d;
+  --ae-gray-900: #212529;
+  --ae-gray-1000: #1a1a1a;
+  --ae-stroke-color: #343a40;
 }
 
 .logo {
@@ -36,10 +51,6 @@ body,
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
 }
@@ -57,5 +68,49 @@ body,
 @media (max-width: 576px) {
   .overlay-content {
     padding-top: 200px;
+  }
+}
+
+.btn-ae-primary {
+  --bs-btn-color: #fff !important;
+  --bs-btn-bg: var(--bs-indigo) !important;
+  --bs-btn-border-color: var(--ae-purple-700);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--bs-purple);
+  --bs-btn-hover-border-color: var(--bs-indigo);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ae-purple-700);
+  --bs-btn-active-border-color: var(--ae-purple-800);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--ae-gray-500);
+  --bs-btn-disabled-border-color: var(--ae-gray-600);
+}
+
+[data-bs-theme="custom-dark"] {
+  --bs-body-color: var(--text-color-dark);
+  --bs-body-bg: var(--ae-gray-1000);
+
+  .card {
+    --bs-card-bg: var(--ae-gray-900);
+    --bs-card-border-color: var(--ae-stroke-color);
+  }
+}
+
+[data-bs-theme="custom-light"] {
+  --bs-body-color: var(--ae-gray-900);
+  --bs-body-bg: var(--ae-gray-200);
+
+  .card {
+    --bs-card-bg: var(--ae-neutral-100);
+    --bs-card-border-color: var(--ae-gray-300);
+  }
+  input {
+    background-color: white;
+    color: var(--ae-gray-900);
+    border-style: solid;
+    border-color: var(--ae-gray-300);
+    border-radius: 4;
   }
 }
