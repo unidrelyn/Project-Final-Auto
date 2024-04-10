@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -7,8 +7,9 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { API_URL } from "../config";
 
-const AddCarForm = ({ setShow, show }) => {
+const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	const [carData, setCarData] = useState({
 		brand: "",
 		model: "",
@@ -16,24 +17,25 @@ const AddCarForm = ({ setShow, show }) => {
 		price: "",
 		description: "",
 		image: "",
+		id: idIndex + 1,
+		class: "",
+		cylinders: 0,
+		drive: "fwd",
+		fuel_type: "gas",
+		transmission: "manual",
+		color: "",
 	});
 
-	console.log(carData);
 	const [validated, setValidated] = useState(false);
 
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		console.log(e);
-		console.log(e.target);
-		console.log("name", name);
-		console.log("value", value);
 		setCarData((prevData) => ({ ...prevData, [name]: value }));
 	};
 
 	const handleSubmit = async (e) => {
-		console.log("aca");
 		e.preventDefault();
 		const form = e.currentTarget;
 		if (form.checkValidity() === false) {
@@ -42,12 +44,16 @@ const AddCarForm = ({ setShow, show }) => {
 		}
 
 		setValidated(true);
+
+		console.log(carData);
 		try {
-			await axios.post("https://projectfinalback.adaptable.app/api/cars", carData);
+			await axios.post(`${API_URL}/api/cars`, carData);
 			navigate("/listings");
 		} catch (error) {
 			console.error("Error adding car:", error);
 		}
+		fetchCarListings();
+		setShow(false);
 	};
 
 	return (
@@ -120,7 +126,7 @@ const AddCarForm = ({ setShow, show }) => {
 								as="textarea"
 								rows={5}
 								name="description"
-								type="number"
+								type="text"
 								placeholder="Description"
 								onChange={handleChange}
 								required
@@ -130,7 +136,7 @@ const AddCarForm = ({ setShow, show }) => {
 							</Form.Control.Feedback>
 						</Form.Group>
 						<Form.Group as={Col} md="auto" controlId="validationCustom06">
-							<Form.Label>Price</Form.Label>
+							<Form.Label>Image URL</Form.Label>
 							<Form.Control
 								name="image"
 								type="text"
@@ -140,6 +146,99 @@ const AddCarForm = ({ setShow, show }) => {
 							/>
 							<Form.Control.Feedback type="invalid">
 								Please provide a valid Image URL.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom07">
+							<Form.Label>Class</Form.Label>
+							<Form.Control
+								name="class"
+								type="text"
+								placeholder="Class"
+								onChange={handleChange}
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid Class.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom08">
+							<Form.Label>Cylinders</Form.Label>
+							<Form.Control
+								name="cylinders"
+								type="number"
+								placeholder="Cylinders"
+								onChange={handleChange}
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid cylinders.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom09">
+							<Form.Label>Drive</Form.Label>
+							<Form.Control
+								as="select"
+								name="drive"
+								type="text"
+								placeholder="Drive"
+								onChange={handleChange}
+								required
+							>
+								<option>fwd</option>
+								<option>rwd</option>
+								<option>awd</option>
+								<option>4wd</option>
+							</Form.Control>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid Drive.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom10">
+							<Form.Label>Fuel Type</Form.Label>
+							<Form.Control
+								as="select"
+								name="fuel_type"
+								type="text"
+								placeholder="Fuel Type"
+								onChange={handleChange}
+								required
+							>
+								<option>gas</option>
+								<option>diesel</option>
+								<option>electricity</option>
+							</Form.Control>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid cylinders.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom11">
+							<Form.Label>Transmission</Form.Label>
+							<Form.Control
+								as="select"
+								name="transmission"
+								type="text"
+								placeholder="transmission"
+								onChange={handleChange}
+								required
+							>
+								<option>manual</option>
+								<option>automatic</option>
+							</Form.Control>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid cylinders.
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group as={Col} md="auto" controlId="validationCustom07">
+							<Form.Label>Color</Form.Label>
+							<Form.Control
+								name="color"
+								type="text"
+								placeholder="Color"
+								onChange={handleChange}
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a valid Class.
 							</Form.Control.Feedback>
 						</Form.Group>
 					</Modal.Body>

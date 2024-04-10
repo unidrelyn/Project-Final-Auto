@@ -8,12 +8,14 @@ import AboutPageWide02 from "../assets/AboutPageWide02.jpg";
 import AddCarForm from "../components/AddCarForm";
 
 import Button from "react-bootstrap/Button";
+import { API_URL } from "../config";
 
 const ListingsPage = () => {
 	//states
 	const [carListings, setCarListings] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [show, setShow] = useState(false);
+	const [idIndex, setIdIndex] = useState(0);
 
 	const navigate = useNavigate();
 	const { addToCart } = useCart();
@@ -25,10 +27,9 @@ const ListingsPage = () => {
 
 	const fetchCarListings = async () => {
 		try {
-			const response = await axios.get(
-				"https://projectfinalback.adaptable.app/api/cars"
-			);
+			const response = await axios.get(`${API_URL}/api/cars`);
 			setCarListings(response.data);
+			setIdIndex(response.data.length);
 		} catch (error) {
 			console.error("Error fetching car listings:", error);
 		}
@@ -45,9 +46,7 @@ const ListingsPage = () => {
 	const handleDelete = async (carId) => {
 		if (window.confirm("Are you sure you want to delete this car?")) {
 			try {
-				await axios.delete(
-					`https://projectfinalback.adaptable.app/api/cars/${carId}`
-				);
+				await axios.delete(`${API_URL}/api/cars/${carId}`);
 				setCarListings((prevListings) =>
 					prevListings.filter((car) => car.id !== carId)
 				);
@@ -109,7 +108,7 @@ const ListingsPage = () => {
 						className="primary-button"
 						variant="primary"
 					>
-						Add Car Modal
+						Add Car
 					</Button>
 				</div>
 				{/* Dark/Light Mode Switch */}
@@ -149,13 +148,13 @@ const ListingsPage = () => {
 									<div className="col">
 										<button
 											className="m-2 pr-4 pl-4 btn btn-secondary"
-											onClick={() => handleEdit(car.id)}
+											onClick={() => handleEdit(car._id)}
 										>
 											Edit
 										</button>
 										<button
 											className="m-2 btn btn-secondary"
-											onClick={() => handleDelete(car.id)}
+											onClick={() => handleDelete(car._id)}
 										>
 											Delete
 										</button>
@@ -166,7 +165,7 @@ const ListingsPage = () => {
 												color: "white",
 												borderColor: "#59359A",
 											}}
-											onClick={() => handleAddToCart(car.id)}
+											onClick={() => handleAddToCart(car._id)}
 										>
 											Add to Cart
 										</button>
@@ -179,7 +178,14 @@ const ListingsPage = () => {
 					)}
 				</div>
 			</div>
-			{show ? <AddCarForm show={show} setShow={setShow} /> : null}
+			{show ? (
+				<AddCarForm
+					show={show}
+					setShow={setShow}
+					idIndex={idIndex}
+					fetchCarListings={fetchCarListings}
+				/>
+			) : null}
 		</div>
 	);
 };
