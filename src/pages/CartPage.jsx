@@ -7,7 +7,7 @@ const CartPage = () => {
   const { cartItems, removeFromCart } = useCart();
 
   return (
-    <div>
+    <div className="container vh-100">
       <h1>Cart</h1>
       {cartItems.length > 0 ? (
         <div className="row w-75 mx-auto">

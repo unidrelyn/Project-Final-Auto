@@ -61,7 +61,7 @@ function EditCarForm() {
 
   return (
     <div>
-      <form className="d-flex flex-column h-100 mt-3" onSubmit={handleSubmit}>
+      <form className="d-flex flex-column mt-3 vh-100" onSubmit={handleSubmit}>
         <div className="col-md-6 mx-auto">
           <h2>Edit Car Info</h2>
           <div className="form">

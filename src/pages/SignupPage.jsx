@@ -42,7 +42,6 @@ const SignupPage = () => {
         password: formData.password,
       });
 
-
       // Assuming your backend returns a success message upon successful signup
       const { message } = response.data;
 
@@ -50,7 +49,7 @@ const SignupPage = () => {
       alert(message);
 
       // Redirect to listings page after successful signup
-      navigate('/listings');
+      navigate("/listings");
     } catch (error) {
       console.error("Signup error:", error);
       setError("Failed to signup. Please try again.");
@@ -59,7 +58,7 @@ const SignupPage = () => {
 
   return (
     <div
-      className="signup-page-container mx-auto"
+      className="signup-page-container mx-auto vh-100"
       style={{ maxWidth: "400px" }}
     >
       <h1>Sign Up</h1>
