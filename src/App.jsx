@@ -15,6 +15,7 @@ import { CartProvider } from "./context/CartContext";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/Footer";
+import { AuthWrapper } from "./context/AuthContext";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -24,6 +25,7 @@ function App() {
   
   console.log('Is authenticated:', isAuthenticated);
   return (
+    <AuthWrapper>
     <CartProvider>
       <CarListProvider>
         <Router>
@@ -52,6 +54,7 @@ function App() {
       </CarListProvider>
 
     </CartProvider>
+    </AuthWrapper>
   );
 }
 
