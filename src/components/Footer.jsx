@@ -12,7 +12,7 @@ function Footer() {
 
 // Example inline styles, adjust as needed
 const footerStyle = {
-  background: "#333",
+  background: "var( --ae-gray-900)",
   color: "#fff",
   padding: "20px 0",
   fontSize: "14px",
