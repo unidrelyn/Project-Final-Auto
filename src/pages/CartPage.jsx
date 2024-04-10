@@ -7,7 +7,7 @@ const CartPage = () => {
   const { cartItems, removeFromCart } = useCart();
 
   return (
-    <div>
+    <div className="container vh-100">
       <h1>Cart</h1>
       {cartItems.length > 0 ? (
         <div className="row w-75 mx-auto">
@@ -59,7 +59,7 @@ const CartPage = () => {
       )}
       <button
         onClick={() => navigate("/checkout")}
-        className="btn btn-primary mt-2 mb-5"
+        className="btn btn-primary mt-2 mb-5 "
         style={{
           backgroundColor: "#7749F8",
           color: "white",
@@ -68,6 +68,17 @@ const CartPage = () => {
       >
         Proceed to Checkout
       </button>
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };

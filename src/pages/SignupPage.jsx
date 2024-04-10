@@ -49,7 +49,7 @@ const SignupPage = () => {
       alert(message);
 
       // Redirect to listings page after successful signup
-      navigate('/listings');
+      navigate("/listings");
     } catch (error) {
       console.error("Signup error:", error);
       setError("Failed to signup. Please try again.");
@@ -58,7 +58,7 @@ const SignupPage = () => {
 
   return (
     <div
-      className="signup-page-container mx-auto"
+      className="signup-page-container mx-auto vh-100"
       style={{ maxWidth: "400px" }}
     >
       <h1>Sign Up</h1>
@@ -75,7 +75,7 @@ const SignupPage = () => {
             value={formData.username}
             onChange={handleChange}
             required
-            className="input-group input-group-sm mb-3" // Apply a custom class
+            className="form-control smaller-input" // Apply a custom class
           />
         </div>
         <div className="form-group">
