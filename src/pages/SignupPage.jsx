@@ -122,7 +122,7 @@ const SignupPage = () => {
             className="form-control smaller-input" // Apply a custom class
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-5 mb-5">
+        <button type="submit" className="btn btn-ae-primary mt-5 mb-5">
           Sign Up
         </button>
       </form>

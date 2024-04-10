@@ -67,6 +67,10 @@ const ListingsPage = () => {
       (car.model && car.model.toLowerCase().includes(searchTerm))
   );
 
+  const capitalizeFirstLetter = (str) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   return (
     <div className="hero-container position-relative">
       <div className="position-absolute top-0 start-0 w-100 h-375px bg-black opacity-50"></div>
@@ -135,14 +139,16 @@ const ListingsPage = () => {
                       width: "100%",
                       height: "150px",
                       objectFit: "cover",
+                      borderRadius: "4px",
                     }}
                   />
                   <h5>
-                    {car.make} {car.model}
+                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+                    {car.model && capitalizeFirstLetter(car.model)}
                   </h5>
                   <p>Year: {car.year}</p>
                   <p>Price: ${car.price}</p>
-                  <p>{car.description}</p>
+                  <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
                   <div className="col">
                     <button
                       className="m-2 pr-4 pl-4 btn btn-secondary"
