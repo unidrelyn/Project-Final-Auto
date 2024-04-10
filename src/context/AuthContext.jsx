@@ -1,47 +1,70 @@
-import React, { createContext, useContext, useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
-// Create a context
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+
+//This is creating the context
 const AuthContext = createContext();
 
-// Create a provider component
-export const AuthProvider = ({ children }) => {
-  // State to manage the authentication status
+//This is the wrapper that will wrap our <App/>
+const AuthWrapper = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
 
+  //this function checks if there is a token and if so, if it is valid
+  const authenticateUser = async () => {
+    //check the localStorage for the token
+    const theToken = localStorage.getItem("authToken");
+    if (theToken) {
+      try {
+        //this is if there is a token then we need to verify it
+        const response = await axios.get("http://localhost:3000/auth/verify", {
+          headers: {
+            authorization: `Bearer ${theToken}`,
+          },
+        });
+        console.log("from the authenticate user function", response.data);
+        setUser(response.data);
+        setIsLoading(false);
+        setIsLoggedIn(true);
+      } catch (err) {
+        console.log("there was an error authenticating the user", err);
+        setUser(null);
+        setIsLoading(false);
+        setIsLoggedIn(false);
+      }
+    } else {
+      setUser(null);
+      setIsLoading(false);
+      setIsLoggedIn(false);
+    }
+    //if there is a token then valid it with the /verify route
+    //if no token then set states to null and isLoggedIn to false
+  };
+  //every time the application mounts, we try to authenticate the user
   useEffect(() => {
-    const storedLoggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(storedLoggedInStatus);
+    authenticateUser();
   }, []);
-  // Function to handle login
-  const login = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
-    navigate('/'); 
-  };
 
-  // Function to handle logout
-  const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
-    navigate('/login');
+  //logout function
+  const handleLogout = async () => {
+    localStorage.removeItem("authToken");
+    await authenticateUser();
   };
-
-  // Value to be provided by the context
-  const authContextValue = {
-    isLoggedIn,
-    login,
-    logout
-  };
-
   return (
-    <AuthContext.Provider value={authContextValue}>
+    //the value is basically the frig, where all the food is stored
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        isLoading,
+        isLoggedIn,
+        authenticateUser,
+        handleLogout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
-
-// Custom hook to use the AuthContext
-export const useAuth = () => useContext(AuthContext);
-
-export default AuthContext;
+//make sure to export both the wrapper and the context
+export { AuthContext, AuthWrapper };
