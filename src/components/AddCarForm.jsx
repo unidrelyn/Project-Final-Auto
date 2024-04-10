@@ -83,8 +83,9 @@ const AddCarForm = () => {
           style={{ width: "400px" }}
         />
       </div>
-      <button type="submit" className="btn btn-primary mt-5 mb-5">
-        Add Car
+      <br />
+      <button type="submit" className="btn btn-ae-primary mt-5 mb-5">
+        Sell Car
       </button>
     </form>
   );

@@ -78,7 +78,7 @@ export const LoginPage = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary mt-5 mb-5"
+          className="btn btn-ae-primary mt-5 mb-5"
           disabled={isLoading}
         >
           {isLoading ? "Logging in..." : "Login"}
