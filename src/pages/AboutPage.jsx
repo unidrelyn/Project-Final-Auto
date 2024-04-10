@@ -25,16 +25,17 @@ const AboutPage = () => {
           className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
           style={{
             paddingTop: "200px",
-            "@media (minWidth: 576px)": { paddingTop: "200px" },
           }}
         >
-          <h1 className="main-heading">About Us</h1>
+          <h1 className="text" style={{ color: "white" }}>
+            About Us
+          </h1>
         </div>
       </div>
 
       <div className="container">
         <div className="col-md-1 mt-4">
-          <img src={WhatWeDoImage} alt="What We Do" />
+          <img src={WhatWeDoImage} className="p-3" alt="What We Do" />
         </div>
         <div className="row">
           <div className="col">
@@ -68,8 +69,8 @@ const AboutPage = () => {
             <div className="col-md-6 m-4">
               <img src={Suit} alt="Suit" className="w-100" />
             </div>
-            <div className="col-md-4 pt-5 text-start">
-              <img src={CraftedWithPurpose} alt="What We Do" />
+            <div className="col-md-4 pt-3 text-start">
+              <img src={CraftedWithPurpose} className="pb-1" alt="What We Do" />
               <p className="d-flex end h-100 mt-auto">
                 Experience the satisfaction of taking charge. Here at
                 AutoExchange, we empower both car buyers and sellers with the
@@ -85,9 +86,13 @@ const AboutPage = () => {
         <div className="row-md-4">
           <div className="row">
             <div className="col-md-6 m-4">
-              <img src={HandshakeImage} alt="Handshake" className="w-100" />
+              <img
+                src={HandshakeImage}
+                className="pb-1 w-100"
+                alt="Handshake"
+              />
             </div>
-            <div className="col-md-4 pt-5 text-start">
+            <div className="col-md-4 pt-3 text-start">
               <img src={ForgedThroughPartnerships} alt="What We Do" />
               <p className="d-flex end h-100 mt-auto">
                 Our foundation is built on relationships, and we take pride in
@@ -105,8 +110,8 @@ const AboutPage = () => {
             <div className="col-md-6 m-4">
               <img src={KeysImage} alt="Keys" className="w-100" />
             </div>
-            <div className="col-md-4 pt-5 text-start">
-              <img src={GuidedByEmpathy} alt="What We Do" />
+            <div className="col-md-4 pt-3 text-start">
+              <img src={GuidedByEmpathy} className="pb-1" alt="What We Do" />
               <p className="d-flex end h-100 mt-auto">
                 Guided By Empathy. People are the heart of our mission.
                 Recognizing the significance of cars in daily life, we're

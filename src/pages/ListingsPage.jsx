@@ -67,6 +67,10 @@ const ListingsPage = () => {
       (car.model && car.model.toLowerCase().includes(searchTerm))
   );
 
+  const capitalizeFirstLetter = (str) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   return (
     <div className="hero-container position-relative">
       <div className="position-absolute top-0 start-0 w-100 h-375px bg-black opacity-50"></div>
@@ -84,7 +88,9 @@ const ListingsPage = () => {
           "@media (minWidth: 576px)": { paddingTop: "200px" },
         }}
       >
-        <h1 className="main-heading">Car Listings</h1>
+        <h1 className="main-heading" style={{ color: "white" }}>
+          Car Listings
+        </h1>
       </div>
 
       <div className="listings-page-container">
@@ -95,18 +101,11 @@ const ListingsPage = () => {
           <input
             type="text"
             placeholder="Search by make or model..."
-            className="search-bar"
+            className="form-control-lg"
+            style={{ width: "50%" }}
             onChange={handleSearchChange}
           />
-          <button
-            onClick={handleAddCar}
-            className="primary-button"
-            style={{
-              backgroundColor: "#7749F8",
-              color: "white",
-              borderColor: "#59359A",
-            }}
-          >
+          <button onClick={handleAddCar} className="btn-ae-primary">
             Add Car
           </button>
         </div>
@@ -129,21 +128,27 @@ const ListingsPage = () => {
             filteredListings.map((car) => (
               <div key={car.id} className="col">
                 <div
-                  className="card m-4  p-3 d-flex justify-content-center"
+                  className="card m-2 p-3 d-flex justify-content-center"
                   style={{ width: "18rem" }}
                 >
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
                     className="card-img-top mx-auto" // Center the image horizontally
-                    style={{ maxWidth: "200px" }}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "cover",
+                      borderRadius: "4px",
+                    }}
                   />
                   <h5>
-                    {car.make} {car.model}
+                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+                    {car.model && capitalizeFirstLetter(car.model)}
                   </h5>
                   <p>Year: {car.year}</p>
-                  <p>Price: ${car.price}</p>
-                  <p>{car.description}</p>
+                  <p>Price: {car.price}</p>
+                  <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
                   <div className="col">
                     <button
                       className="m-2 pr-4 pl-4 btn btn-secondary"
@@ -158,12 +163,7 @@ const ListingsPage = () => {
                       Delete
                     </button>
                     <button
-                      className="m-2 btn btn-primary"
-                      style={{
-                        backgroundColor: "#7749F8",
-                        color: "white",
-                        borderColor: "#59359A",
-                      }}
+                      className="m-2 btn btn-ae-primary"
                       onClick={() => handleAddToCart(car.id)}
                     >
                       Add to Cart

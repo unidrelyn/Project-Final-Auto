@@ -147,7 +147,7 @@ const Checkout = ({ cartItems }) => {
               <option value="bankTransfer">Bank Transfer</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary mt-5 mb-5">
+          <button type="submit" className="btn btn-ae-primary mt-5 mb-5">
             Place Order
           </button>
         </form>

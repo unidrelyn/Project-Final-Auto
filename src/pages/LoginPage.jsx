@@ -29,19 +29,26 @@ export const LoginPage = () => {
       navigate("/listings"); // Ensure this route exists in your app
       setIsLoading(false); // Reset loading status
     } catch (err) {
+
       console.error("There was an error logging in",err);
+
       setError("Failed to login. Please try again.");
       setIsLoading(false); // Reset loading status even in case of error
     }
   };
 
   return (
-    <div className="login-page-container">
+    <div
+      className="login-page-container mx-auto vh-100"
+      style={{ width: "400px" }}
+    >
       <h1>Login</h1>
       {error && <p className="error-message m-2">{error}</p>}
       <form onSubmit={handleLogin} className="login-form">
         <div className="form-group m-2">
-          <label htmlFor="email" className="m-3">Email:</label>
+          <label htmlFor="email" className="m-3">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -49,10 +56,14 @@ export const LoginPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             aria-label="Email"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <div className="form-group m-2">
-          <label htmlFor="password" className="m-3">Password:</label>
+          <label htmlFor="password" className="m-3">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -60,16 +71,30 @@ export const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-label="Password"
+            className="form-control smaller-input"
+            style={{ width: "400px" }}
           />
         </div>
         <button
           type="submit"
-          className="btn btn-primary mt-5 mb-5"
+          className="btn btn-ae-primary mt-5 mb-5"
           disabled={isLoading}
         >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
+
+      {/* Dark/Light Mode Switch */}
+      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
+        <input
+          className="form-check-input p-2"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckChecked"
+          defaultChecked
+          onClick={myFunction}
+        />
+      </div>
     </div>
   );
 };

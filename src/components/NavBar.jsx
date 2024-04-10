@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 
-const NavBar = ({ isAuthenticated } ) => {
+const NavBar = ({ isAuthenticated }) => {
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    // Implement signout logic here
-    // For example, clear user session, token, or any relevant data
-    // Then redirect the user to the login page or home page
-   setIsAuthenticated(false); 
-    navigate('/login');
+    setIsAuthenticated(false);
+    navigate("/login");
   };
 
   return (
@@ -48,17 +46,17 @@ const NavBar = ({ isAuthenticated } ) => {
                 About
               </NavLink>
             </li>
-            
+
             {isAuthenticated ? (
-              <React.Fragment>
+              <>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="#" onClick={handleSignOut}>
                     Signout
                   </NavLink>
                 </li>
-              </React.Fragment>
+              </>
             ) : (
-              <React.Fragment>
+              <>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/login">
                     Login
@@ -69,49 +67,8 @@ const NavBar = ({ isAuthenticated } ) => {
                     Signup
                   </NavLink>
                 </li>
-              </React.Fragment>
+              </>
             )}
-            {/* Custom dropdown menu */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                More
-              </a>
-              <div
-                className="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navbarDropdown"
-              >
-                <NavLink className="dropdown-item" to="/listings">
-                  Listings
-                </NavLink>
-                <NavLink className="dropdown-item" to="/about">
-                  About
-                  </NavLink>
-                {isAuthenticated ? (
-                  <React.Fragment>
-                    <NavLink className="dropdown-item" to="#" onClick={handleSignOut}>
-                      Signout
-                    </NavLink>
-                  </React.Fragment>
-                ) : (
-                  <React.Fragment>
-                    <NavLink className="dropdown-item" to="/login">
-                      Login
-                    </NavLink>
-                    <NavLink className="dropdown-item" to="/signup">
-                      Signup
-                    </NavLink>
-                  </React.Fragment>
-                )}
-              </div>
-            </li>
           </ul>
         </div>
       </div>
