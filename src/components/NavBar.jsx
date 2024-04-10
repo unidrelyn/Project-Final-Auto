@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
+
 const NavBar = ({ isAuthenticated }) => {
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -75,3 +77,6 @@ const NavBar = ({ isAuthenticated }) => {
 };
 
 export default NavBar;
+
+
+

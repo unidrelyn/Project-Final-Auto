@@ -4,7 +4,7 @@ import axios from "axios"; // Import Axios library
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -25,7 +25,7 @@ const SignupPage = () => {
 
     // Basic validation
     if (
-      !formData.username ||
+      !formData.name ||
       !formData.email.includes("@") ||
       formData.password.length < 8 ||
       formData.password !== formData.confirmPassword
@@ -37,7 +37,7 @@ const SignupPage = () => {
     try {
       // Make HTTP POST request to signup endpoint
       const response = await axios.post("http://localhost:5005/auth/signup", {
-        username: formData.username,
+        name: formData.name, 
         email: formData.email,
         password: formData.password,
       });
@@ -65,14 +65,14 @@ const SignupPage = () => {
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
-          <label htmlFor="username" className="form-label">
+          <label htmlFor="name" className="form-label">
             Username:
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
             className="form-control smaller-input" // Apply a custom class

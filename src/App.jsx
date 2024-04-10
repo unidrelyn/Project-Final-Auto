@@ -23,7 +23,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   
-  console.log('Is authenticated:', isAuthenticated);
+  //console.log('Is authenticated:', isAuthenticated);
   return (
     <AuthWrapper>
     <CartProvider>

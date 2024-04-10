@@ -21,8 +21,10 @@ const AddCarForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       await axios.post("http://localhost:3000/cars", carData);
       navigate("/listings");
+
     } catch (error) {
       console.error("Error adding car:", error);
     }
