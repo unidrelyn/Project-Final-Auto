@@ -25,10 +25,9 @@ const AboutPage = () => {
           className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
           style={{
             paddingTop: "200px",
-            "@media (minWidth: 576px)": { paddingTop: "200px" },
           }}
         >
-          <h1 className="main-heading" style={{ color: "white" }}>
+          <h1 className="text" style={{ color: "white" }}>
             About Us
           </h1>
         </div>

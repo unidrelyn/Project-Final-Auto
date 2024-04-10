@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer style={footerStyle}>
+    <footer className="-fixed-bottom" style={footerStyle}>
       <div style={copyRightStyle}>
         © {new Date().getFullYear()} Auto Exchange. All rights reserved.
       </div>
