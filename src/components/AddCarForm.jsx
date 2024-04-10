@@ -23,7 +23,7 @@ const AddCarForm = () => {
     e.preventDefault();
     try {
      
-      await axios.post('http://localhost:3000/cars', carData);
+      await axios.post('http://localhost:5005/api/cars', carData);
       navigate('/listings'); 
     } catch (error) {
       console.error('Error adding car:', error);

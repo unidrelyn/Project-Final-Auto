@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
+
 const NavBar = ({ isAuthenticated } ) => {
   const navigate = useNavigate();
 
@@ -12,7 +13,7 @@ const NavBar = ({ isAuthenticated } ) => {
    setIsAuthenticated(false); 
     navigate('/login');
   };
- 
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -119,3 +120,6 @@ const NavBar = ({ isAuthenticated } ) => {
 };
 
 export default NavBar;
+
+
+
