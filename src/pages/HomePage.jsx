@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useCarList } from "../context/CarListContext";
 import axios from "axios";
 import HeroWide from "../assets/HeroWide.jpg";
+import { useCart } from "../context/CartContext"; // Import useCart hook
 
-const ListingsPage = () => {
+const HomePage = () => {
   const [carListings, setCarListings] = useState([]);
   const { carList } = useCarList();
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { addToCart } = useCart(); // Use addToCart function from useCart hook
 
   useEffect(() => {
     fetchCarListings();
@@ -45,7 +47,11 @@ const ListingsPage = () => {
   };
 
   const handleAddToCart = (carId) => {
-    // Logic for adding to cart
+    const carToAdd = carListings.find((car) => car.id === carId);
+    if (carToAdd) {
+      addToCart(carToAdd); // Add car to cart
+      navigate("/cart"); // Navigate to cart page
+    }
   };
 
   const handleAddCar = () => {
@@ -155,4 +161,4 @@ const ListingsPage = () => {
   );
 };
 
-export default ListingsPage;
+export default HomePage;

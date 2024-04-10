@@ -147,7 +147,7 @@ const ListingsPage = () => {
                     {car.model && capitalizeFirstLetter(car.model)}
                   </h5>
                   <p>Year: {car.year}</p>
-                  <p>Price: ${car.price}</p>
+                  <p>Price: {car.price}</p>
                   <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
                   <div className="col">
                     <button
