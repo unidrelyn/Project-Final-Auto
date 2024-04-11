@@ -34,18 +34,20 @@ const HomePage = () => {
 		navigate(`/edit/${carId}`);
 	};
 
-	const handleDelete = async (carId) => {
-		if (window.confirm("Are you sure you want to delete this car?")) {
-			try {
-				await axios.delete(`${API_URL}/api/cars/${carId}`);
-				setCarListings((prevListings) =>
-					prevListings.filter((car) => car.id !== carId)
-				);
-			} catch (error) {
-				console.error("Error deleting car:", error);
-			}
-		}
-	};
+
+  const handleDelete = async (carId) => {
+    if (window.confirm("Are you sure you want to delete this car?")) {
+      try {
+       await axios.delete(`${API_URL}/api/cars/${carId}`);
+        setCarListings((prevListings) =>
+          prevListings.filter((car) => car.id !== carId)
+        );
+      } catch (error) {
+        console.error("Error deleting car:", error);
+      }
+    }
+  };
+
 
 	const handleAddToCart = (carId) => {
 		const carToAdd = carListings.find((car) => car.id === carId);

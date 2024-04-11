@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { API_URL } from "../config";
+import uniqid from 'uniqid';
 
 const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	const [carData, setCarData] = useState({
@@ -17,7 +19,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 		price: "",
 		description: "",
 		image: "",
-		id: idIndex + 1,
+	id:uniqid,
 		class: "",
 		cylinders: 0,
 		drive: "fwd",
@@ -36,25 +38,24 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const form = e.currentTarget;
-		if (form.checkValidity() === false) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
-		setValidated(true);
-
-		console.log(carData);
-		try {
-			await axios.post(`${API_URL}/api/cars`, carData);
-			navigate("/listings");
-		} catch (error) {
-			console.error("Error adding car:", error);
-		}
-		fetchCarListings();
-		setShow(false);
-	};
+    e.preventDefault();
+    const form = e.currentTarget;
+    console.log(carData);
+    if (form.checkValidity() === false) {
+        e.stopPropagation();
+    } else {
+        try {
+            const response = await axios.post(`${API_URL}/api/cars`, carData);
+            console.log(response.data);
+            navigate("/listings");
+            fetchCarListings();
+            setShow(false);
+        } catch (error) {
+            console.error("Error adding car:", error.response ? error.response.data : error.message);
+        }
+    }
+    setValidated(true);
+};
 
 	return (
 		<>
