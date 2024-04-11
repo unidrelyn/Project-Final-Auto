@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import { API_URL } from "../config";
 import uniqid from "uniqid";
 
+
 const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	const [carData, setCarData] = useState({
 		brand: "",
@@ -37,24 +38,25 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const form = e.currentTarget;
-		if (form.checkValidity() === false) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
 
-		setValidated(true);
-
-		try {
-			await axios.post(`${API_URL}/api/cars`, carData);
-			navigate("/listings");
-		} catch (error) {
-			console.error("Error adding car:", error);
-		}
-		fetchCarListings();
-		setShow(false);
-	};
+    e.preventDefault();
+    const form = e.currentTarget;
+    console.log(carData);
+    if (form.checkValidity() === false) {
+        e.stopPropagation();
+    } else {
+        try {
+            const response = await axios.post(`${API_URL}/api/cars`, carData);
+            console.log(response.data);
+            navigate("/listings");
+            fetchCarListings();
+            setShow(false);
+        } catch (error) {
+            console.error("Error adding car:", error.response ? error.response.data : error.message);
+        }
+    }
+    setValidated(true);
+};
 
 	return (
 		<>

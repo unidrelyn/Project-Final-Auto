@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-
+import { API_URL } from "../config";
 export const LoginPage = ({ showLogin, setShowLogin }) => {
 	const [email, setEmail] = useState(""); // Use email for login identifier
 	const [password, setPassword] = useState("");
@@ -15,13 +15,16 @@ export const LoginPage = ({ showLogin, setShowLogin }) => {
 	const { authenticateUser } = useContext(AuthContext); // Destructure only what you need from context
 	const navigate = useNavigate(); // 'nav' changed to 'navigate' for clarity
 
+
 	const [validated, setValidated] = useState(false);
+
 
 	// Handle form submission
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		setIsLoading(true); // Indicate loading
 		setError(null); // Reset any existing errors
+
 
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
@@ -32,10 +35,10 @@ export const LoginPage = ({ showLogin, setShowLogin }) => {
 		setValidated(true);
 
 		try {
-			const response = await axios.post(
-				"http://localhost:5005/auth/login",
-				{ email, password } // Use the state variables directly
-			);
+      const response = await axios.post(
+        `${API_URL}/auth/login`,
+        { email, password } // Use the state variables directly
+      );
 
 			console.log("You logged in", response.data);
 			localStorage.setItem("authToken", response.data.authToken); // Assuming 'authToken' is the correct key
