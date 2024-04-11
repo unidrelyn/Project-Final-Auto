@@ -47,10 +47,9 @@ const SignupPage = () => {
 				email: formData.email,
 				password: formData.password,
 			});
-
-			// Assuming your backend returns a success message upon successful signup
-			const { message } = response.data;
-
+			console.log(response.data); // Add this line
+			
+			const message = response.data.message || "Signup successful!";
 			// Show success message (optional)
 			alert(message);
 
