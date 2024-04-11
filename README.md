@@ -1,35 +1,59 @@
-# AutoExchange
-![AutoExchange Logo](src/assets/logo.png)
-Welcome to AutoExchange, where the future of car trading unfolds with a human touch.
+<div align="center">
+  <img src="src/assets/logo.png" alt="AutoExchange logo" width="500px">
+</div>
 
-## Our Philosophy
-AutoExchange isn't just a marketplace; it's a community-driven platform where every click, every view, and every exchange is rooted in the understanding that behind every transaction is a person's dream, necessity, or hard work. We're more than a platform; we're your trusted companion on the road to finding your perfect vehicle match.
+<h1 align="center">AutoExchange</h1>
 
-![AutoExchange Hero Wide](src/assets/HeroWide.jpg)
+<p align="center">
+  Revolutionizing the car buying experience for the modern digital consumer.
+  <br>
+  <a href="https://autoexchange.netlify.app"><strong>Explore the AutoExchange platform »</strong></a>
+  <br>
+  <br>
+  <a href="https://github.com/unidrelyn/Project-Final-Auto/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/unidrelyn/Project-Final-Auto/issues">Request Feature</a>
+</p>
 
-## What We Do
+---
 
-We're redefining the journey of car trading by focusing on:
+## Table of Contents
+- [About AutoExchange](#about-autoexchange)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Code Overview](#code-overview)
+  - [Dependencies](#dependencies)
+  - [Folder Structure](#folder-structure)
+  - [Authentication](#authentication)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### Tailored Experiences
-![Personalized Car Buying](src/assets/AboutPageWide.jpg)
-We tailor the car buying and selling journey to fit you. Your needs, your pace, your adventure.
+---
 
-### Meaningful Connections
-Building relationships is at the heart of what we do. Our expansive network is your gateway to choices and opportunities.
+## About AutoExchange
 
-### Empathy in Motion
-Cars are more than machines; they're part of our lives. Our services are crafted around understanding and fulfilling your automotive aspirations.
+<div align="center">
+  <img src="src/assets/HeroWide.jpg" alt="AutoExchange Interface" width="700px">
+</div>
 
-## The Journey
+At AutoExchange, we empower individuals to buy or sell vehicles with ease and efficiency. Our platform integrates cutting-edge technology to provide a seamless experience, offering a vast selection of vehicles and a robust network of dealers.
 
-Every stride at AutoExchange is taken with purpose—to make car trading accessible, efficient, and enjoyable. From browsing our selection to the exciting moment of making a choice, you're in the driver's seat.
+## Features
 
-Check out the journey live at [autoexchange.netlify.app](https://autoexchange.netlify.app).
+- **Personalized Car Journey**: Navigate through a vast selection of cars to find the one that suits your style and budget.
+- **Trusted Dealer Network**: Access over 10,000 certified dealers, making it simple to find trusted and verified sellers.
+- **User-Centric Design**: Enjoy a platform designed with the user's experience in mind, offering intuitive navigation and detailed car information.
 
-## Installation
+## Getting Started
 
-Get started with AutoExchange:
+To get a local copy up and running follow these simple steps.
 
-```bash
-https://autoexchange.netlify.app
+### Installation
+
+```sh
+git clone https://github.com/unidrelyn/Project-Final-Auto.git
+cd Project-Final-Auto
+npm install
+npm start

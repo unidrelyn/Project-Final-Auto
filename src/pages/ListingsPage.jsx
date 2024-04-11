@@ -43,7 +43,7 @@ const ListingsPage = () => {
     if (carToAdd) {
       addToCart(carToAdd);
       console.log("Added to cart:", carToAdd);
-      navigate("/checkout");
+      navigate("/cart");
       // Show a toast or modal here instead of immediate navigation
       // Example: showToast("Car added to cart!");
     }

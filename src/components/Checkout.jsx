@@ -74,7 +74,7 @@ const Checkout = ({ cartItems }) => {
 			paymentMethod: formData.paymentMethod,
 		};
 		console.log('API_URL:', API_URL);  // Log the API URL to ensure it's correct
-		console.log('Order Data:', orderData);  // Log the order data to inspect its structure and content
+		console.log( orderData);  // Log the order data to inspect its structure and content
 		try {
 			const response = await axios.post(`${API_URL}/api/orders`, orderData);
 			console.log("Order placed successfully:", response.data);
