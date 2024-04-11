@@ -60,31 +60,42 @@ const Checkout = ({ cartItems }) => {
 	};
 
 	const onPlaceOrder = async () => {
-		// New function for placing the order
+		// Construct the order data structure
 		const orderData = {
 			customerInfo: {
-				fullName: formData.fullName,
+				fullName: formData.fullName,  // Assuming formData is your state holding form inputs
 				email: formData.email,
 				address: formData.address,
 			},
-			items: cartItems.map((item) => ({
-				carId: item.id,
-				quantity: item.quantity || 1,
+			items: cartItems.map((item) => ({  // Assuming cartItems holds items in the cart
+				carId: item._id,  // Ensure this matches the property holding the ObjectId in your car items
+				quantity: item.quantity || 1,  // Default quantity to 1 if undefined
 			})),
-			paymentMethod: formData.paymentMethod,
+			paymentMethod: formData.paymentMethod,  // Assuming this is part of your form data as well
 		};
-		console.log('API_URL:', API_URL);  // Log the API URL to ensure it's correct
-		console.log( orderData);  // Log the order data to inspect its structure and content
+	
 		try {
+			// Sending the order data to your backend
 			const response = await axios.post(`${API_URL}/api/orders`, orderData);
+	
+			// Handling the successful response
 			console.log("Order placed successfully:", response.data);
 			alert("Order placed successfully!");
-
-			clearCart();
-			navigate("/");
+	
+			// Additional actions on successful order placement:
+			// - Clearing the cart
+			// - Redirecting the user, possibly to a confirmation page
+			clearCart();  // Assuming clearCart is a function available in your context or props
+			navigate("/");  // Adjust the route as necessary
 		} catch (error) {
+			// Handling errors, including those returned from the server
 			console.error("Error placing order:", error);
-			alert("Error placing order. Please try again.");
+	
+			const errorMessage = error.response && error.response.data && error.response.data.error
+				? error.response.data.error
+				: "Error placing order. Please try again.";
+	
+			alert(errorMessage);
 		}
 	};
 

@@ -33,7 +33,7 @@ export const LoginPage = ({ showLogin, setShowLogin }) => {
 		}
 
 		setValidated(true);
-
+console.log(email, password)
 		try {
       const response = await axios.post(
         `${API_URL}/auth/login`,
@@ -84,7 +84,7 @@ export const LoginPage = ({ showLogin, setShowLogin }) => {
 							type="password"
 							placeholder="Password"
 							defaultValue={password}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 							autoFocus
 							required
 						/>
