@@ -17,6 +17,7 @@ const ListingsPage = () => {
 	const [show, setShow] = useState(false);
 	const [idIndex, setIdIndex] = useState(0);
 
+
 	const navigate = useNavigate();
 	const { addToCart } = useCart();
 	const { carList } = useCarList();
@@ -34,6 +35,19 @@ const ListingsPage = () => {
 			console.error("Error fetching car listings:", error);
 		}
 	};
+
+
+
+  const handleAddToCart = (carId) => {
+    const carToAdd = carListings.find((car) => car._id === carId || car.id === carId); // Adjusted to handle either _id or id
+    if (carToAdd) {
+      addToCart(carToAdd);
+      console.log("Added to cart:", carToAdd);
+      navigate("/checkout");
+      // Show a toast or modal here instead of immediate navigation
+      // Example: showToast("Car added to cart!");
+    }
+  };
 
 	const handleSearchChange = (event) => {
 		setSearchTerm(event.target.value.toLowerCase());
@@ -56,21 +70,14 @@ const ListingsPage = () => {
 		}
 	};
 
-	const handleAddToCart = (carId) => {
-		const carToAdd = carListings.find((car) => car.id === carId);
-		if (carToAdd) {
-			addToCart(carToAdd);
-			console.log("Added to cart:", carToAdd);
-			navigate("/cart");
-		}
-	};
 
-	const filteredListings = carListings.filter(
-		(car) =>
-			searchTerm === "" ||
-			(car.make && car.make.toLowerCase().includes(searchTerm)) ||
-			(car.model && car.model.toLowerCase().includes(searchTerm))
-	);
+  const filteredListings = carListings.filter(
+    (car) =>
+      searchTerm === "" ||
+      (car.brand && car.brand.toLowerCase().includes(searchTerm)) ||
+      (car.model && car.model.toLowerCase().includes(searchTerm))
+  );
+
 
 	return (
 		<div className="hero-container position-relative">
@@ -91,6 +98,7 @@ const ListingsPage = () => {
 			>
 				<h1 className="main-heading">Car Listings</h1>
 			</div>
+
 
 			<div className="listings-page-container">
 				<div
