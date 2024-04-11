@@ -92,23 +92,19 @@ const ListingsPage = () => {
           Car Listings
         </h1>
       </div>
+      <input
+        type="text"
+        placeholder="Search by make or model..."
+        className="form-control-lg m-4"
+        style={{ width: "50%" }}
+        onChange={handleSearchChange}
+      />
+      <button onClick={handleAddCar} className="btn-ae-primary">
+        Add Car
+      </button>
 
-      <div className="listings-page-container">
-        <div
-          className="d-flex justify-content-center align-items-center p-5 m-2"
-          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
-        >
-          <input
-            type="text"
-            placeholder="Search by make or model..."
-            className="form-control-lg"
-            style={{ width: "50%" }}
-            onChange={handleSearchChange}
-          />
-          <button onClick={handleAddCar} className="btn-ae-primary">
-            Add Car
-          </button>
-        </div>
+      <div className="listings-page-container d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center p-5 m-2"></div>
         {/* Dark/Light Mode Switch */}
         <div
           className="form-check form-switch position-fixed bottom-0 end-0 m-4"
@@ -123,7 +119,7 @@ const ListingsPage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100">
+        <div className="row w-100 d-flex justify-content-center custom-row">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
               <div key={car.id} className="col">

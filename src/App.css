@@ -122,3 +122,12 @@ img.home-page-logo:hover {
   -webkit-filter: drop-shadow(1px 1px 7px black);
   transition: -webkit-filter 300ms ease-in-out;
 }
+
+.row {
+  --bs-gutter-x: 0rem;
+}
+
+.custom-row {
+  margin-right: 0;
+  margin-left: 0;
+}

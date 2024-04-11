@@ -89,14 +89,9 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-
-      <div className="listings-page-container">
-        <div
-          className="d-flex justify-content-center align-items-center p-5 m-2"
-          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
-        >
-          <h1 className="text">Recommended for you</h1>{" "}
-        </div>
+      <h1 className="text">Recommended for you</h1>{" "}
+      <div className="listings-page-container  d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center p-5 m-2"></div>
         {/* Dark/Light Mode Switch */}
         <div
           className="form-check form-switch position-fixed bottom-0 end-0 m-4"
@@ -111,12 +106,12 @@ const HomePage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100 d-flex justify-content-start">
+        <div className="row w-100 d-flex justify-content-center">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
               <div
                 key={car.id}
-                className="col d-flex justify-content-start mb-4"
+                className="col d-flex justify-content-center mb-4"
               >
                 <div
                   className="card m-2 p-0 d-flex justify-content-center"
