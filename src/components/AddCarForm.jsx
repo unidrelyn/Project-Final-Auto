@@ -1,15 +1,13 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
 import { API_URL } from "../config";
-import uniqid from 'uniqid';
+import uniqid from "uniqid";
+
 
 const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	const [carData, setCarData] = useState({
@@ -19,7 +17,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 		price: "",
 		description: "",
 		image: "",
-	id:uniqid,
+		id: uniqid(),
 		class: "",
 		cylinders: 0,
 		drive: "fwd",
@@ -27,6 +25,8 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 		transmission: "manual",
 		color: "",
 	});
+
+	console.log(carData.id);
 
 	const [validated, setValidated] = useState(false);
 
@@ -38,6 +38,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 	};
 
 	const handleSubmit = async (e) => {
+
     e.preventDefault();
     const form = e.currentTarget;
     console.log(carData);
@@ -74,6 +75,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								placeholder="Brand"
 								defaultValue={carData.brand}
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -88,6 +90,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								placeholder="Model"
 								defaultValue={carData.model}
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -102,6 +105,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								placeholder="Year"
 								defaultValue={carData.year}
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -115,6 +119,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="number"
 								placeholder="Price"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -130,6 +135,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Description"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -143,6 +149,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Image URL"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -156,6 +163,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Class"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -169,6 +177,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="number"
 								placeholder="Cylinders"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
@@ -183,6 +192,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Drive"
 								onChange={handleChange}
+								autoFocus
 								required
 							>
 								<option>fwd</option>
@@ -202,6 +212,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Fuel Type"
 								onChange={handleChange}
+								autoFocus
 								required
 							>
 								<option>gas</option>
@@ -220,6 +231,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="transmission"
 								onChange={handleChange}
+								autoFocus
 								required
 							>
 								<option>manual</option>
@@ -236,6 +248,7 @@ const AddCarForm = ({ setShow, show, idIndex, fetchCarListings }) => {
 								type="text"
 								placeholder="Color"
 								onChange={handleChange}
+								autoFocus
 								required
 							/>
 							<Form.Control.Feedback type="invalid">
