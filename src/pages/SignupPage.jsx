@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import Axios library
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import { API_URL } from "../config";
 
-const SignupPage = () => {
+const SignupPage = ({ showSign, setShowSign }) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -12,6 +16,8 @@ const SignupPage = () => {
 	});
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
+
+	const [validated, setValidated] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -40,6 +46,14 @@ const SignupPage = () => {
 			return;
 		}
 
+		const form = e.currentTarget;
+		if (form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		setValidated(true);
+
 		try {
 			// Make HTTP POST request to signup endpoint
 			const response = await axios.post(`${API_URL}/auth/signup`, {
@@ -60,78 +74,87 @@ const SignupPage = () => {
 			console.error("Signup error:", error);
 			setError("Failed to signup. Please try again.");
 		}
+		setShowSign(false);
 	};
 
 	return (
-		<div
-			className="signup-page-container mx-auto vh-100"
-			style={{ maxWidth: "400px" }}
-		>
-			<h1>Sign Up</h1>
-			{error && <p className="error-message">{error}</p>}
-			<form onSubmit={handleSubmit} className="signup-form">
-				<div className="form-group">
-					<label htmlFor="name" className="form-label">
-						Username:
-					</label>
-					<input
-						type="text"
-						id="name"
-						name="name"
-						value={formData.name}
-						onChange={handleChange}
-						required
-						className="form-control smaller-input" // Apply a custom class
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="email" className="form-label">
-						Email:
-					</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						value={formData.email}
-						onChange={handleChange}
-						required
-						className="form-control smaller-input" // Apply a custom class
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="password" className="form-label">
-						Password:
-					</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						value={formData.password}
-						onChange={handleChange}
-						required
-						minLength="8"
-						className="form-control smaller-input" // Apply a custom class
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="confirmPassword" className="form-label">
-						Confirm Password:
-					</label>
-					<input
-						type="password"
-						id="confirmPassword"
-						name="confirmPassword"
-						value={formData.confirmPassword}
-						onChange={handleChange}
-						required
-						minLength="8"
-						className="form-control smaller-input" // Apply a custom class
-					/>
-				</div>
-				<button type="submit" className="btn btn-ae-primary mt-5 mb-5">
-					Sign Up
-				</button>
-			</form>
+		<>
+			<Modal show={showSign} onHide={() => setShowSign(false)}>
+				<Form noValidate validated={validated} onSubmit={handleSubmit}>
+					<Modal.Header closeButton>
+						<Modal.Title>Sign Up</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form.Group as={Col} md="auto" controlId="validationCustom01">
+							<Form.Label>Username</Form.Label>
+							<Form.Control
+								name="name"
+								type="text"
+								placeholder="User Name"
+								defaultValue={formData.name}
+								onChange={handleChange}
+								autoFocus
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a User Name
+							</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group as={Col} md="auto" controlId="validationCustom02">
+							<Form.Label>Email</Form.Label>
+							<Form.Control
+								name="email"
+								type="email"
+								placeholder="E-mail"
+								defaultValue={formData.email}
+								onChange={handleChange}
+								autoFocus
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a User Name
+							</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group as={Col} md="auto" controlId="validationCustom03">
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								name="password"
+								type="password"
+								placeholder="Password"
+								defaultValue={formData.password}
+								onChange={handleChange}
+								autoFocus
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a User Name
+							</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group as={Col} md="auto" controlId="validationCustom04">
+							<Form.Label>Confirm Password</Form.Label>
+							<Form.Control
+								name="confirmPassword"
+								type="password"
+								placeholder="confirm Password"
+								defaultValue={formData.confirmPassword}
+								onChange={handleChange}
+								autoFocus
+								required
+							/>
+							<Form.Control.Feedback type="invalid">
+								Please provide a User Name
+							</Form.Control.Feedback>
+						</Form.Group>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button type="submit">Submit form</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+
 			{/* Dark/Light Mode Switch */}
 			<div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
 				<input
@@ -143,7 +166,7 @@ const SignupPage = () => {
 					onClick={myFunction}
 				/>
 			</div>
-		</div>
+		</>
 	);
 };
 
