@@ -30,7 +30,7 @@ export const LoginPage = ({ showLogin, setShowLogin }) => {
 		}
 
 		setValidated(true);
-
+console.log(email, password)
 		try {
 			const response = await axios.post(
 				`${API_URL}/auth/login`,
