@@ -1,7 +1,9 @@
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_URL } from "../config";
+
 
 const EditCarForm = () => {
   const [carData, setCarData] = useState({
@@ -27,10 +29,8 @@ const EditCarForm = () => {
     const fetchCarDetails = async () => {
       try {
         if (carId) {
-          const response = await axios.get(
-            `https://projectfinalback.adaptable.app/api/cars/${carId}`
-          );
-          setCarData(response.data);
+          const response = await axios.get(`${API_URL}/api/cars/${carId}`);          
+           setCarData(response.data);
         }
       } catch (error) {
         console.error("Error fetching car details:", error);
@@ -38,17 +38,19 @@ const EditCarForm = () => {
       }
     };
 
-    fetchCarDetails();
-  }, [carId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCarData((prevData) => ({ ...prevData, [name]: value }));
-  };
+		fetchCarDetails();
+	}, [carId]);
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setCarData((prevData) => ({ ...prevData, [name]: value }));
+	};
+
 
   const editCar = async (updatedCar) => {
     try {
-      await axios.put(`https://projectfinalback.adaptable.app/api/cars/${carId}`, updatedCar);
+     await axios.put(`${API_URL}/api/cars/${carId}`, updatedCar);
       setSuccess("Car details updated successfully!");
       setTimeout(() => navigate("/listings"), 2000);
     } catch (error) {
@@ -59,12 +61,14 @@ const EditCarForm = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
 
-    await editCar(carData);
-  };
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setSubmitting(true);
+
+		await editCar(carData);
+	};
+
 
   return (
     <div>
