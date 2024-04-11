@@ -91,75 +91,86 @@ const HomePage = () => {
 				</div>
 			</div>
 
-			<div className="listings-page-container">
-				<div
-					className="d-flex justify-content-center align-items-center p-5 m-2"
-					style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
-				>
-					<h1 className="text">Recommended for you</h1>
-				</div>
-				{/* Dark/Light Mode Switch */}
-				<div
-					className="form-check form-switch position-fixed bottom-0 end-0 m-4"
-					style={{ zIndex: 999 }}
-				>
-					<input
-						className="form-check-input p-2"
-						type="checkbox"
-						role="switch"
-						id="flexSwitchCheckChecked"
-						defaultChecked
-						onClick={myFunction}
-					/>
-				</div>
-				<div className="row w-100 d-flex justify-content-start">
-					{filteredListings.length > 0 ? (
-						filteredListings.map((car) => (
-							<div key={car.id} className="col d-flex justify-content-start">
-								<div
-									className="card m-2 p-3 d-flex justify-content-center"
-									style={{ width: "18rem" }}
-								>
-									<img
-										src={car.image}
-										alt={`${car.make} ${car.model}`}
-										className="card-img-top mx-auto" // Center the image horizontally
-										style={{
-											width: "100%",
-											height: "150px",
-											objectFit: "cover",
-											borderRadius: "4px",
-										}}
-									/>
-									<h5>
-										{car.brand && capitalizeFirstLetter(car.brand)}{" "}
-										{car.model && capitalizeFirstLetter(car.model)}
-									</h5>
-									<div className="col text-left">
-										<p>Year: {car.year}</p>
-										<p>Price: {car.price}</p>
-										<p>
-											Color: {car.color && capitalizeFirstLetter(car.color)}
-										</p>
-									</div>
-									<div className="col">
-										<button
-											className="m-2 btn btn-ae-primary"
-											onClick={() => handleAddToCart(car.id)}
-										>
-											Add to Cart
-										</button>
-									</div>
-								</div>
-							</div>
-						))
-					) : (
-						<p>No car listings available.</p>
-					)}
-				</div>
-			</div>
-		</div>
-	);
+
+      <div className="listings-page-container">
+        <div
+          className="d-flex justify-content-center align-items-center p-5 m-2"
+          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
+        >
+          <h1 className="text">Recommended for you</h1>{" "}
+        </div>
+        {/* Dark/Light Mode Switch */}
+        <div
+          className="form-check form-switch position-fixed bottom-0 end-0 m-4"
+          style={{ zIndex: 999 }}
+        >
+          <input
+            className="form-check-input p-2"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckChecked"
+            defaultChecked
+            onClick={myFunction}
+          />
+        </div>
+        <div className="row w-100 d-flex justify-content-start">
+          {filteredListings.length > 0 ? (
+            filteredListings.map((car) => (
+              <div
+                key={car._id}
+                className="col d-flex justify-content-start mb-4"
+              >
+                <div
+                  className="card m-2 p-0 d-flex justify-content-center"
+                  style={{ width: "18rem" }}
+                >
+                  <img
+                    src={car.image}
+                    alt={`${car.make} ${car.model}`}
+                    className="card-img-top mx-auto" // Center the image horizontally
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "cover",
+                      borderRadius: "4px",
+                      margin: "0 auto",
+                      padding: "0",
+                    }}
+                  />
+                  <h4 className="mt-3 text-left w-100 d-flex p-2">
+                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+                    {car.model && capitalizeFirstLetter(car.model)}
+                  </h4>
+                  <div className="col text-left">
+                    {" "}
+                    <ul style={{ listStyleType: "disc", textAlign: "left" }}>
+                      {" "}
+                      <li>Year: {car.year}</li>
+                      <li>Price: {car.price}</li>
+                      <li>
+                        Color: {car.color && capitalizeFirstLetter(car.color)}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="col">
+                    <button
+                      className="m-2  btn btn-ae-primary d-flex justify-content-left"
+                      onClick={() => handleAddToCart(car.id)}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No car listings available.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;
