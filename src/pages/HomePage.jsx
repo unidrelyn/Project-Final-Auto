@@ -36,7 +36,7 @@ const HomePage = () => {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`http://localhost:3000/cars/${carId}`);
+        await axios.delete(`https://projectfinalback.adaptable.app/api/cars/${carId}`);
         setCarListings((prevListings) =>
           prevListings.filter((car) => car.id !== carId)
         );

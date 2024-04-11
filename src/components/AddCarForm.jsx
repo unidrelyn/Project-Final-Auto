@@ -1,16 +1,22 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddCarForm = () => {
   const [carData, setCarData] = useState({
-    make: "",
-    model: "",
-    year: "",
-    price: "",
-    description: "",
-    image: "",
+    brand: '',
+    model: '',
+    color: '',
+    image: '',
+    price: '',
+    year: '',
+    cylinders: '',
+    drive: 'fwd',
+    fuel_type: 'gas',
+    transmission: 'manual',
   });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,24 +27,23 @@ const AddCarForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
-      await axios.post("http://localhost:3000/cars", carData);
+      await axios.post('https://projectfinalback.adaptable.app/api/cars', carData);
       navigate("/listings");
-
     } catch (error) {
-      console.error("Error adding car:", error);
+      const message = error.response?.data?.message || "Failed to add the car. Please try again.";
+      setError(message);
+      console.error("Error adding car:", message);
     }
   };
 
   return (
     <form className="mb-5" onSubmit={handleSubmit}>
       <div className="col-md-6 mx-auto w-400px">
-        {/* Form fields for car data */}
         <input
-          name="make"
-          value={carData.make}
+          name="brand"
+          value={carData.brand}
           onChange={handleChange}
-          placeholder="Make"
+          placeholder="Brand"
           className="m-3"
           style={{ width: "400px" }}
         />
@@ -68,11 +73,35 @@ const AddCarForm = () => {
           className="m-3"
           style={{ width: "400px" }}
         />
-        <textarea
-          name="description"
-          value={carData.description}
+        <input
+          name="cylinders"
+          type="number"
+          value={carData.cylinders}
           onChange={handleChange}
-          placeholder="Description"
+          placeholder="Cylinders"
+          className="m-3"
+          style={{ width: "400px" }}
+        />
+        <select name="drive" value={carData.drive} onChange={handleChange} className="m-3" style={{ width: "400px" }}>
+          <option value="fwd">FWD</option>
+          <option value="rwd">RWD</option>
+          <option value="awd">AWD</option>
+          <option value="4wd">4WD</option>
+        </select>
+        <select name="fuel_type" value={carData.fuel_type} onChange={handleChange} className="m-3" style={{ width: "400px" }}>
+          <option value="gas">Gasloine</option>
+          <option value="diesel">Diesel</option>
+          <option value="electricity">Electricity</option>
+        </select>
+        <select name="transmission" value={carData.transmission} onChange={handleChange} className="m-3" style={{ width: "400px" }}>
+          <option value="manual">Manual</option>
+          <option value="automatic">Automatic</option>
+        </select>
+        <input
+          name="color"
+          value={carData.color}
+          onChange={handleChange}
+          placeholder="Color"
           className="m-3"
           style={{ width: "400px" }}
         />
@@ -85,9 +114,9 @@ const AddCarForm = () => {
           style={{ width: "400px" }}
         />
       </div>
-      <br />
+      {error && <div className="text-danger">{error}</div>}
       <button type="submit" className="btn btn-ae-primary mt-5 mb-5">
-        Sell Car
+        Add Car
       </button>
     </form>
   );

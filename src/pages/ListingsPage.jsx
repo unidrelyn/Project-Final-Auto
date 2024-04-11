@@ -19,7 +19,7 @@ const ListingsPage = () => {
 
   const fetchCarListings = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/cars");
+      const response = await axios.get("https://projectfinalback.adaptable.app/api/cars");
       setCarListings(response.data);
     } catch (error) {
       console.error("Error fetching car listings:", error);
@@ -37,22 +37,27 @@ const ListingsPage = () => {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`http://localhost:3000/cars/${carId}`);
-        setCarListings((prevListings) =>
-          prevListings.filter((car) => car.id !== carId)
-        );
+        await axios.delete(`https://projectfinalback.adaptable.app/api/cars/${carId}`);
+        
+        // Ensure you are using the correct identifier and the state is updated immediately
+        setCarListings((prevListings) => prevListings.filter((car) => car._id !== carId));
+        
+        alert("Car deleted successfully!");
       } catch (error) {
         console.error("Error deleting car:", error);
+        alert("Failed to delete the car. Please try again.");
       }
     }
   };
 
   const handleAddToCart = (carId) => {
-    const carToAdd = carListings.find((car) => car.id === carId);
+    const carToAdd = carListings.find((car) => car._id === carId || car.id === carId); // Adjusted to handle either _id or id
     if (carToAdd) {
       addToCart(carToAdd);
       console.log("Added to cart:", carToAdd);
-      navigate("/cart");
+      navigate("/checkout");
+      // Show a toast or modal here instead of immediate navigation
+      // Example: showToast("Car added to cart!");
     }
   };
 
@@ -63,7 +68,7 @@ const ListingsPage = () => {
   const filteredListings = carListings.filter(
     (car) =>
       searchTerm === "" ||
-      (car.make && car.make.toLowerCase().includes(searchTerm)) ||
+      (car.brand && car.brand.toLowerCase().includes(searchTerm)) ||
       (car.model && car.model.toLowerCase().includes(searchTerm))
   );
 
@@ -124,57 +129,59 @@ const ListingsPage = () => {
           />
         </div>
         <div className="row w-100">
-          {filteredListings.length > 0 ? (
-            filteredListings.map((car) => (
-              <div key={car.id} className="col">
-                <div
-                  className="card m-2 p-3 d-flex justify-content-center"
-                  style={{ width: "18rem" }}
-                >
-                  <img
-                    src={car.image}
-                    alt={`${car.make} ${car.model}`}
-                    className="card-img-top mx-auto" // Center the image horizontally
-                    style={{
-                      width: "100%",
-                      height: "150px",
-                      objectFit: "cover",
-                      borderRadius: "4px",
-                    }}
-                  />
-                  <h5>
-                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
-                    {car.model && capitalizeFirstLetter(car.model)}
-                  </h5>
-                  <p>Year: {car.year}</p>
-                  <p>Price: {car.price}</p>
-                  <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
-                  <div className="col">
-                    <button
-                      className="m-2 pr-4 pl-4 btn btn-secondary"
-                      onClick={() => handleEdit(car.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="m-2 btn btn-secondary"
-                      onClick={() => handleDelete(car.id)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="m-2 btn btn-ae-primary"
-                      onClick={() => handleAddToCart(car.id)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No car listings available.</p>
-          )}
+        {
+  filteredListings.length > 0 ? (
+    filteredListings.map((car, index) => ( // Using index as a fallback key
+      <div key={car._id || index} className="col"> // Prefer car._id if available, otherwise use index
+        <div
+          className="card m-2 p-3 d-flex justify-content-center"
+          style={{ width: "18rem" }}
+        >
+          <img
+            src={car.image}
+            alt={`${car.brand || 'Brand'} ${car.model || 'Model'}`} // Fallback to 'Brand' and 'Model' if car.brand or car.model are undefined
+            className="card-img-top mx-auto"
+            style={{
+              width: "100%",
+              height: "150px",
+              objectFit: "cover",
+              borderRadius: "4px",
+            }}
+          />
+          <h5>
+            {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+            {car.model && capitalizeFirstLetter(car.model)}
+          </h5>
+          <p>Year: {car.year}</p>
+          <p>Price: {car.price}</p>
+          <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
+          <div className="col">
+            <button
+              className="m-2 pr-4 pl-4 btn btn-secondary"
+              onClick={() => handleEdit(car._id || car.id)} // Use car._id or car.id, depending on what your data uses
+            >
+              Edit
+            </button>
+            <button
+              className="m-2 btn btn-secondary"
+              onClick={() => handleDelete(car._id || car.id)} // Use car._id or car.id, depending on what your data uses
+            >
+              Delete
+            </button>
+            <button
+              className="m-2 btn btn-ae-primary"
+              onClick={() => handleAddToCart(car._id || car.id)} // Use car._id or car.id, depending on what your data uses
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No car listings available.</p>
+  )
+}
         </div>
       </div>
     </div>

@@ -1,14 +1,21 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-function EditCarForm() {
+const EditCarForm = () => {
   const [carData, setCarData] = useState({
-    make: "",
+    brand: "", 
     model: "",
-    year: 0,
-    price: 0,
+    year: "", 
+    price: "",
     description: "",
+    cylinders: "",
+    drive: "",
+    fuel_type: "",
+    transmission: "",
+    color: "",
+    image: ""
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +28,7 @@ function EditCarForm() {
       try {
         if (carId) {
           const response = await axios.get(
-            `http://localhost:3000/cars/${carId}`
+            `https://projectfinalback.adaptable.app/api/cars/${carId}`
           );
           setCarData(response.data);
         }
@@ -41,7 +48,7 @@ function EditCarForm() {
 
   const editCar = async (updatedCar) => {
     try {
-      await axios.put(`http://localhost:3000/cars/${carId}`, updatedCar);
+      await axios.put(`https://projectfinalback.adaptable.app/api/cars/${carId}`, updatedCar);
       setSuccess("Car details updated successfully!");
       setTimeout(() => navigate("/listings"), 2000);
     } catch (error) {
@@ -65,76 +72,44 @@ function EditCarForm() {
         <div className="col-md-6 mx-auto">
           <h2>Edit Car Info</h2>
           <div className="form">
-            <input
-              name="make"
-              value={carData.make}
-              onChange={handleChange}
-              placeholder="Make"
-              className="form m-3"
-              style={{ width: "400px" }}
-            />
-            <input
-              name="model"
-              value={carData.model}
-              onChange={handleChange}
-              placeholder="Model"
-              className="form m-3"
-              style={{ width: "400px" }}
-            />
-            <input
-              name="year"
-              type="number"
-              value={carData.year}
-              onChange={handleChange}
-              placeholder="Year"
-              className=" form m-3"
-              style={{ width: "400px" }}
-            />
-            <input
-              name="price"
-              type="number"
-              value={carData.price}
-              onChange={handleChange}
-              placeholder="Price"
-              className="form m-3"
-              style={{ width: "400px" }}
-            />
-            <input
-              name="description"
-              value={carData.description}
-              onChange={handleChange}
-              placeholder="Description"
-              className="form m-3"
-              style={{ width: "400px" }}
-            />
+            {/* Existing fields */}
+            <input name="brand" value={carData.brand} onChange={handleChange} placeholder="Brand" className="form m-3" style={{ width: "400px" }} />
+            <input name="model" value={carData.model} onChange={handleChange} placeholder="Model" className="form m-3" style={{ width: "400px" }} />
+            {/* New fields */}
+            <input name="price" type="number" value={carData.price} onChange={handleChange} placeholder="Price" className="form m-3" style={{ width: "400px" }} />
+            
+            <select name="drive" value={carData.drive} onChange={handleChange} className="form m-3" style={{ width: "400px" }}>
+              <option value="">Select Drive</option>
+              <option value="fwd">FWD</option>
+              <option value="rwd">RWD</option>
+              <option value="awd">AWD</option>
+              <option value="4wd">4WD</option>
+            </select>
+            <select name="fuel_type" value={carData.fuel_type} onChange={handleChange} className="form m-3" style={{ width: "400px" }}>
+              <option value="">Select Fuel Type</option>
+              <option value="gas">Gas</option>
+              <option value="diesel">Diesel</option>
+              <option value="electricity">Electricity</option>
+            </select>
+            <select name="transmission" value={carData.transmission} onChange={handleChange} className="form m-3" style={{ width: "400px" }}>
+              <option value="">Select Transmission</option>
+              <option value="manual">Manual</option>
+              <option value="automatic">Automatic</option>
+            </select>
+            <input name="color" value={carData.color} onChange={handleChange} placeholder="Color" className="form m-3" style={{ width: "400px" }} />
+            <input name="image" value={carData.image} onChange={handleChange} placeholder="Image URL" className="form m-3" style={{ width: "400px" }} />
           </div>
         </div>
         <div className="d-flex justify-content-center">
-          <button
-            type="submit"
-            className="btn btn-ae-primary mt-5 mb-5"
-            style={{ width: "150px" }}
-            disabled={submitting}
-          >
+          <button type="submit" className="btn btn-ae-primary mt-5 mb-5" style={{ width: "150px" }} disabled={submitting}>
             {submitting ? "Updating..." : "Update Car"}
           </button>
         </div>
         {error && <div style={{ color: "red" }}>{error}</div>}
         {success && <div style={{ color: "green" }}>{success}</div>}
       </form>
-      {/* Dark/Light Mode Switch */}
-      <div className="form-check form-switch position-fixed bottom-0 end-0 m-4">
-        <input
-          className="form-check-input p-2"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckChecked"
-          defaultChecked
-          onClick={myFunction}
-        />
-      </div>
     </div>
   );
-}
+};
 
 export default EditCarForm;
