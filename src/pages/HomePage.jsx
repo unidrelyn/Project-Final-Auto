@@ -1,94 +1,96 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCarList } from "../context/CarListContext";
 import axios from "axios";
 import HeroWide from "../assets/HeroWide.jpg";
 import { useCart } from "../context/CartContext"; // Import useCart hook
+import { API_URL } from "../config";
 
 const HomePage = () => {
-  const [carListings, setCarListings] = useState([]);
-  const { carList } = useCarList();
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
-  const { addToCart } = useCart(); // Use addToCart function from useCart hook
+	const [carListings, setCarListings] = useState([]);
+	const { carList } = useCarList();
+	const [searchTerm, setSearchTerm] = useState("");
+	const navigate = useNavigate();
+	const { addToCart } = useCart(); // Use addToCart function from useCart hook
 
-  useEffect(() => {
-    fetchCarListings();
-  }, []);
+	useEffect(() => {
+		fetchCarListings();
+	}, []);
 
-  const fetchCarListings = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/cars");
-      setCarListings(response.data);
-    } catch (error) {
-      console.error("Error fetching car listings:", error);
-    }
-  };
+	const fetchCarListings = async () => {
+		try {
+			const response = await axios.get(`${API_URL}/api/cars`);
+			setCarListings(response.data);
+		} catch (error) {
+			console.error("Error fetching car listings:", error);
+		}
+	};
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value.toLowerCase());
-  };
+	const handleSearchChange = (event) => {
+		setSearchTerm(event.target.value.toLowerCase());
+	};
 
-  const handleEdit = (carId) => {
-    navigate(`/edit/${carId}`);
-  };
+	const handleEdit = (carId) => {
+		navigate(`/edit/${carId}`);
+	};
 
-  const handleDelete = async (carId) => {
-    if (window.confirm("Are you sure you want to delete this car?")) {
-      try {
-        await axios.delete(`http://localhost:3000/cars/${carId}`);
-        setCarListings((prevListings) =>
-          prevListings.filter((car) => car.id !== carId)
-        );
-      } catch (error) {
-        console.error("Error deleting car:", error);
-      }
-    }
-  };
+	const handleDelete = async (carId) => {
+		if (window.confirm("Are you sure you want to delete this car?")) {
+			try {
+				await axios.delete(`${API_URL}/api/cars/${carId}`);
+				setCarListings((prevListings) =>
+					prevListings.filter((car) => car.id !== carId)
+				);
+			} catch (error) {
+				console.error("Error deleting car:", error);
+			}
+		}
+	};
 
-  const handleAddToCart = (carId) => {
-    const carToAdd = carListings.find((car) => car.id === carId);
-    if (carToAdd) {
-      addToCart(carToAdd); // Add car to cart
-      navigate("/cart"); // Navigate to cart page
-    }
-  };
+	const handleAddToCart = (carId) => {
+		const carToAdd = carListings.find((car) => car.id === carId);
+		if (carToAdd) {
+			addToCart(carToAdd); // Add car to cart
+			navigate("/cart"); // Navigate to cart page
+		}
+	};
 
-  const handleAddCar = () => {
-    navigate("/add-car");
-  };
+	const handleAddCar = () => {
+		navigate("/add-car");
+	};
 
-  const filteredListings = carListings.filter(
-    (car) =>
-      searchTerm === "" ||
-      (car.make && car.make.toLowerCase().includes(searchTerm)) ||
-      (car.model && car.model.toLowerCase().includes(searchTerm))
-  );
+	const filteredListings = carListings.filter(
+		(car) =>
+			searchTerm === "" ||
+			(car.make && car.make.toLowerCase().includes(searchTerm)) ||
+			(car.model && car.model.toLowerCase().includes(searchTerm))
+	);
 
-  const capitalizeFirstLetter = (str) => {
-    return str.replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+	const capitalizeFirstLetter = (str) => {
+		return str.replace(/\b\w/g, (char) => char.toUpperCase());
+	};
 
-  return (
-    <div className="home-page-container">
-      <div className="hero-container position-relative">
-        <img src={HeroWide} alt="Car Image" className="hero-image img-fluid" />
-        <div
-          className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
-          style={{
-            paddingTop: "200px",
-            "@media (minWidth: 576px)": { paddingTop: "200px" },
-          }}
-        >
-          <h1 className="main-heading mt-5 mb-4" style={{ color: "white" }}>
-            Welcome to AutoExchange
-          </h1>
-          <p className="description" style={{ color: "white" }}>
-            Discover your ideal car today or list your vehicle for sale with
-            ease.
-          </p>
-        </div>
-      </div>
+	return (
+		<div className="home-page-container">
+			<div className="hero-container position-relative">
+				<img src={HeroWide} alt="Car Image" className="hero-image img-fluid" />
+				<div
+					className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
+					style={{
+						paddingTop: "200px",
+						"@media (minWidth: 576px)": { paddingTop: "200px" },
+					}}
+				>
+					<h1 className="main-heading mt-5 mb-4" style={{ color: "white" }}>
+						Welcome to AutoExchange
+					</h1>
+					<p className="description" style={{ color: "white" }}>
+						Discover your ideal car today or list your vehicle for sale with
+						ease.
+					</p>
+				</div>
+			</div>
+
 
       <div className="listings-page-container">
         <div
@@ -115,7 +117,7 @@ const HomePage = () => {
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
               <div
-                key={car.id}
+                key={car._id}
                 className="col d-flex justify-content-start mb-4"
               >
                 <div
