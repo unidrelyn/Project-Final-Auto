@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"; // Ensure this path matches your file structure
-
+import { API_URL } from "../config";
 export const LoginPage = () => {
   const [email, setEmail] = useState(""); // Use email for login identifier
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5005/auth/login",
+        `${API_URL}/auth/login`,
         { email, password } // Use the state variables directly
       );
 
@@ -29,10 +29,9 @@ export const LoginPage = () => {
       navigate("/listings"); // Ensure this route exists in your app
       setIsLoading(false); // Reset loading status
     } catch (err) {
-      console.error(
-        "There was an error logging in",
-        err.response?.data?.errorMessage
-      );
+
+      console.error("There was an error logging in",err);
+
       setError("Failed to login. Please try again.");
       setIsLoading(false); // Reset loading status even in case of error
     }

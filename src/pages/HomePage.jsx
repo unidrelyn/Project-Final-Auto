@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCarList } from "../context/CarListContext";
 import axios from "axios";
 import HeroWide from "../assets/HeroWide.jpg";
 import { useCart } from "../context/CartContext"; // Import useCart hook
+import { API_URL } from "../config";
 
 const HomePage = () => {
   const [carListings, setCarListings] = useState([]);
@@ -18,7 +19,7 @@ const HomePage = () => {
 
   const fetchCarListings = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/cars");
+      const response = await axios.get(`${API_URL}/api/cars`);
       setCarListings(response.data);
     } catch (error) {
       console.error("Error fetching car listings:", error);
@@ -36,7 +37,7 @@ const HomePage = () => {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`http://localhost:3000/cars/${carId}`);
+        await axios.delete(`${API_URL}/api/cars/${carId}`);
         setCarListings((prevListings) =>
           prevListings.filter((car) => car.id !== carId)
         );
@@ -89,9 +90,14 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-      <h1 className="text">Recommended for you</h1>{" "}
-      <div className="listings-page-container  d-flex justify-content-center align-items-center">
-        <div className="d-flex justify-content-center align-items-center p-5 m-2"></div>
+
+      <div className="listings-page-container">
+        <div
+          className="d-flex justify-content-center align-items-center p-5 m-2"
+          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
+        >
+          <h1 className="text">Recommended for you</h1>{" "}
+        </div>
         {/* Dark/Light Mode Switch */}
         <div
           className="form-check form-switch position-fixed bottom-0 end-0 m-4"
@@ -106,12 +112,12 @@ const HomePage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100 d-flex justify-content-center">
+        <div className="row w-100 d-flex justify-content-start">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
               <div
-                key={car.id}
-                className="col d-flex justify-content-center mb-4"
+                key={car._id}
+                className="col d-flex justify-content-start mb-4"
               >
                 <div
                   className="card m-2 p-0 d-flex justify-content-center"

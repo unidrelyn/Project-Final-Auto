@@ -5,13 +5,21 @@ import axios from "axios";
 import CarListing from "../components/CarListing";
 import { useCart } from "../context/CartContext";
 import AboutPageWide02 from "../assets/AboutPageWide02.jpg";
+import AddCarForm from "../components/AddCarForm";
+
+import Button from "react-bootstrap/Button";
+import { API_URL } from "../config";
 
 const ListingsPage = () => {
+  //states
   const [carListings, setCarListings] = useState([]);
-  const { carList } = useCarList();
   const [searchTerm, setSearchTerm] = useState("");
+  const [show, setShow] = useState(false);
+  const [idIndex, setIdIndex] = useState(0);
+
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { carList } = useCarList();
 
   useEffect(() => {
     fetchCarListings();
@@ -19,10 +27,24 @@ const ListingsPage = () => {
 
   const fetchCarListings = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/cars");
+      const response = await axios.get(`${API_URL}/api/cars`);
       setCarListings(response.data);
+      setIdIndex(response.data.length);
     } catch (error) {
       console.error("Error fetching car listings:", error);
+    }
+  };
+
+  const handleAddToCart = (carId) => {
+    const carToAdd = carListings.find(
+      (car) => car._id === carId || car.id === carId
+    ); // Adjusted to handle either _id or id
+    if (carToAdd) {
+      addToCart(carToAdd);
+      console.log("Added to cart:", carToAdd);
+      navigate("/checkout");
+      // Show a toast or modal here instead of immediate navigation
+      // Example: showToast("Car added to cart!");
     }
   };
 
@@ -37,7 +59,7 @@ const ListingsPage = () => {
   const handleDelete = async (carId) => {
     if (window.confirm("Are you sure you want to delete this car?")) {
       try {
-        await axios.delete(`http://localhost:3000/cars/${carId}`);
+        await axios.delete(`${API_URL}/api/cars/${carId}`);
         setCarListings((prevListings) =>
           prevListings.filter((car) => car.id !== carId)
         );
@@ -47,29 +69,12 @@ const ListingsPage = () => {
     }
   };
 
-  const handleAddToCart = (carId) => {
-    const carToAdd = carListings.find((car) => car.id === carId);
-    if (carToAdd) {
-      addToCart(carToAdd);
-      console.log("Added to cart:", carToAdd);
-      navigate("/cart");
-    }
-  };
-
-  const handleAddCar = () => {
-    navigate("/add-car");
-  };
-
   const filteredListings = carListings.filter(
     (car) =>
       searchTerm === "" ||
-      (car.make && car.make.toLowerCase().includes(searchTerm)) ||
+      (car.brand && car.brand.toLowerCase().includes(searchTerm)) ||
       (car.model && car.model.toLowerCase().includes(searchTerm))
   );
-
-  const capitalizeFirstLetter = (str) => {
-    return str.replace(/\b\w/g, (char) => char.toUpperCase());
-  };
 
   return (
     <div className="hero-container position-relative">
@@ -88,23 +93,28 @@ const ListingsPage = () => {
           "@media (minWidth: 576px)": { paddingTop: "200px" },
         }}
       >
-        <h1 className="main-heading" style={{ color: "white" }}>
-          Car Listings
-        </h1>
+        <h1 className="main-heading">Car Listings</h1>
       </div>
-      <input
-        type="text"
-        placeholder="Search by make or model..."
-        className="form-control-lg m-4"
-        style={{ width: "50%" }}
-        onChange={handleSearchChange}
-      />
-      <button onClick={handleAddCar} className="btn-ae-primary">
-        Add Car
-      </button>
 
-      <div className="listings-page-container d-flex justify-content-center align-items-center">
-        <div className="d-flex justify-content-center align-items-center p-5 m-2"></div>
+      <div className="listings-page-container">
+        <div
+          className="d-flex justify-content-center align-items-center p-5 m-2"
+          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
+        >
+          <input
+            type="text"
+            placeholder="Search by make or model..."
+            className="search-bar"
+            onChange={handleSearchChange}
+          />
+          <Button
+            onClick={() => setShow(true)}
+            className="primary-button"
+            variant="primary"
+          >
+            Add Car
+          </Button>
+        </div>
         {/* Dark/Light Mode Switch */}
         <div
           className="form-check form-switch position-fixed bottom-0 end-0 m-4"
@@ -119,48 +129,47 @@ const ListingsPage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100 d-flex justify-content-center custom-row">
+        <div className="row w-100">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
-              <div key={car.id} className="col">
+              <div key={car._id} className="col">
                 <div
-                  className="card m-2 p-3 d-flex justify-content-center"
+                  className="card m-4  p-3 d-flex justify-content-center"
                   style={{ width: "18rem" }}
                 >
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
                     className="card-img-top mx-auto" // Center the image horizontally
-                    style={{
-                      width: "100%",
-                      height: "150px",
-                      objectFit: "cover",
-                      borderRadius: "4px",
-                    }}
+                    style={{ maxWidth: "200px" }}
                   />
                   <h5>
-                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
-                    {car.model && capitalizeFirstLetter(car.model)}
+                    {car.make} {car.model}
                   </h5>
                   <p>Year: {car.year}</p>
-                  <p>Price: {car.price}</p>
-                  <p>Color: {car.color && capitalizeFirstLetter(car.color)}</p>
+                  <p>Price: ${car.price}</p>
+                  <p>{car.description}</p>
                   <div className="col">
                     <button
                       className="m-2 pr-4 pl-4 btn btn-secondary"
-                      onClick={() => handleEdit(car.id)}
+                      onClick={() => handleEdit(car._id)}
                     >
                       Edit
                     </button>
                     <button
                       className="m-2 btn btn-secondary"
-                      onClick={() => handleDelete(car.id)}
+                      onClick={() => handleDelete(car._id)}
                     >
                       Delete
                     </button>
                     <button
-                      className="m-2 btn btn-ae-primary"
-                      onClick={() => handleAddToCart(car.id)}
+                      className="m-2 btn btn-primary"
+                      style={{
+                        backgroundColor: "#7749F8",
+                        color: "white",
+                        borderColor: "#59359A",
+                      }}
+                      onClick={() => handleAddToCart(car._id)}
                     >
                       Add to Cart
                     </button>
@@ -173,6 +182,14 @@ const ListingsPage = () => {
           )}
         </div>
       </div>
+      {show ? (
+        <AddCarForm
+          show={show}
+          setShow={setShow}
+          idIndex={idIndex}
+          fetchCarListings={fetchCarListings}
+        />
+      ) : null}
     </div>
   );
 };

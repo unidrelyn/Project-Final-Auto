@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-
+import { API_URL } from "../config";
 //This is creating the context
 const AuthContext = createContext();
 
@@ -17,12 +17,12 @@ const AuthWrapper = ({ children }) => {
     if (theToken) {
       try {
         //this is if there is a token then we need to verify it
-        const response = await axios.get("http://localhost:3000/auth/verify", {
+        const response = await axios.get(`${API_URL}/auth/verify`, {
           headers: {
             authorization: `Bearer ${theToken}`,
           },
         });
-        console.log("from the authenticate user function", response.data);
+        //console.log("from the authenticate user function", response.data);
         setUser(response.data);
         setIsLoading(false);
         setIsLoggedIn(true);
@@ -68,3 +68,4 @@ const AuthWrapper = ({ children }) => {
 };
 //make sure to export both the wrapper and the context
 export { AuthContext, AuthWrapper };
+

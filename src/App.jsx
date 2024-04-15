@@ -16,6 +16,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/Footer";
 import { AuthWrapper } from "./context/AuthContext";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -23,7 +24,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   
-  console.log('Is authenticated:', isAuthenticated);
+  //console.log('Is authenticated:', isAuthenticated);
   return (
     <AuthWrapper>
     <CartProvider>
@@ -42,7 +43,7 @@ function App() {
             />
             
             <Route path="/edit/:carId" element={<EditCarForm />} />
-            <Route path="/add-car" element={<AddCarForm />} />
+            < Route path="/add-car" element={<AddCarForm />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             {/* Define other routes */}
             <Route path="/cart" element={<CartPage />} />{" "}
@@ -59,3 +60,5 @@ function App() {
 }
 
 export default App;
+
+
