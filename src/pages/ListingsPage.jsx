@@ -8,14 +8,16 @@ import AboutPageWide02 from "../assets/AboutPageWide02.jpg";
 import AddCarForm from "../components/AddCarForm";
 
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import { API_URL } from "../config";
 
 const ListingsPage = () => {
-  //states
-  const [carListings, setCarListings] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [show, setShow] = useState(false);
-  const [idIndex, setIdIndex] = useState(0);
+	//states
+	const [carListings, setCarListings] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [show, setShow] = useState(false);
+	const [idIndex, setIdIndex] = useState(0);
+	const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -25,28 +27,31 @@ const ListingsPage = () => {
     fetchCarListings();
   }, []);
 
-  const fetchCarListings = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/cars`);
-      setCarListings(response.data);
-      setIdIndex(response.data.length);
-    } catch (error) {
-      console.error("Error fetching car listings:", error);
-    }
-  };
+	const fetchCarListings = async () => {
+		try {
+			const response = await axios.get(`${API_URL}/api/cars`);
+			setCarListings(response.data);
+			setIdIndex(response.data.length);
+			setTimeout(() => {
+				setLoading(true);
+			}, 1500);
+		} catch (error) {
+			console.error("Error fetching car listings:", error);
+		}
+	};
 
-  const handleAddToCart = (carId) => {
-    const carToAdd = carListings.find(
-      (car) => car._id === carId || car.id === carId
-    ); // Adjusted to handle either _id or id
-    if (carToAdd) {
-      addToCart(carToAdd);
-      console.log("Added to cart:", carToAdd);
-      navigate("/checkout");
-      // Show a toast or modal here instead of immediate navigation
-      // Example: showToast("Car added to cart!");
-    }
-  };
+	const handleAddToCart = (carId) => {
+		const carToAdd = carListings.find(
+			(car) => car._id === carId || car.id === carId
+		); // Adjusted to handle either _id or id
+		if (carToAdd) {
+			addToCart(carToAdd);
+			console.log("Added to cart:", carToAdd);
+			navigate("/cart");
+			// Show a toast or modal here instead of immediate navigation
+			// Example: showToast("Car added to cart!");
+		}
+	};
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
@@ -56,19 +61,46 @@ const ListingsPage = () => {
     navigate(`/edit/${carId}`);
   };
 
-  const handleDelete = async (carId) => {
-    if (window.confirm("Are you sure you want to delete this car?")) {
-      try {
-        await axios.delete(`${API_URL}/api/cars/${carId}`);
-        setCarListings((prevListings) =>
-          prevListings.filter((car) => car.id !== carId)
-        );
-      } catch (error) {
-        console.error("Error deleting car:", error);
-      }
-    }
-  };
+	const handleDelete = async (carId) => {
+		if (window.confirm("Are you sure you want to delete this car?")) {
+			try {
+				await axios.delete(`${API_URL}/api/cars/${carId}`);
+				setCarListings((prevListings) =>
+					prevListings.filter((car) => car.id !== carId)
+				);
+			} catch (error) {
+				console.error("Error deleting car:", error);
+			}
+		}
+	};
 
+	const filteredListings = carListings.filter(
+		(car) =>
+			searchTerm === "" ||
+			(car.brand && car.brand.toLowerCase().includes(searchTerm)) ||
+			(car.model && car.model.toLowerCase().includes(searchTerm))
+	);
+
+	if (loading) {
+		return (
+			<div className="hero-container position-relative">
+				<div className="position-absolute top-0 start-0 w-100 h-375px bg-black opacity-50"></div>
+				<img
+					src={AboutPageWide02}
+					alt="Car Image"
+					className="hero-image img-fluid w-100 h-50"
+					style={{ objectFit: "cover" }}
+				/>
+				<div
+					className="overlay-content position-absolute top-0 start-50 translate-middle text-center"
+					style={{
+						zIndex: "1", // Set a higher z-index for the overlay content
+						paddingTop: "200px",
+						"@media (minWidth: 576px)": { paddingTop: "200px" },
+					}}
+				>
+					<h1 className="main-heading">Car Listings</h1>
+				</div>
   const filteredListings = carListings.filter(
     (car) =>
       searchTerm === "" ||
