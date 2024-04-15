@@ -131,3 +131,9 @@ img.home-page-logo:hover {
   margin-right: 0;
   margin-left: 0;
 }
+
+.button-fixed-height {
+  height: 38px; /* Fixed height */
+  bottom: 0; /* Align the button to the bottom */
+  margin: 0 auto; /* Center the button horizontally */
+}

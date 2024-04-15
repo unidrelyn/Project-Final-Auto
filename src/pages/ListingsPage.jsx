@@ -75,7 +75,9 @@ const ListingsPage = () => {
       (car.brand && car.brand.toLowerCase().includes(searchTerm)) ||
       (car.model && car.model.toLowerCase().includes(searchTerm))
   );
-
+  const capitalizeFirstLetter = (str) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
   return (
     <div className="hero-container position-relative">
       <div className="position-absolute top-0 start-0 w-100 h-375px bg-black opacity-50"></div>
@@ -112,7 +114,7 @@ const ListingsPage = () => {
             className="primary-button"
             variant="primary"
           >
-            Add Car
+            Sell Your Car
           </Button>
         </div>
         {/* Dark/Light Mode Switch */}
@@ -129,26 +131,40 @@ const ListingsPage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100">
+        <div className="row w-100 ">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
-              <div key={car._id} className="col">
-                <div
-                  className="card m-4  p-3 d-flex justify-content-center"
-                  style={{ width: "18rem" }}
-                >
+              <div key={car._id} className="col  mb-4">
+                <div className="card m-2 p-0" style={{ width: "18rem" }}>
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
-                    className="card-img-top mx-auto" // Center the image horizontally
-                    style={{ maxWidth: "200px" }}
+                    className="card-img-top mx-auto"
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "cover",
+                      borderRadius: "4px",
+                      margin: "0 auto",
+                      padding: "0",
+                    }}
                   />
-                  <h5>
-                    {car.make} {car.model}
-                  </h5>
-                  <p>Year: {car.year}</p>
-                  <p>Price: ${car.price}</p>
-                  <p>{car.description}</p>
+                  <h4 className="mt-2 text-left w-100 p-2">
+                    {car.brand && capitalizeFirstLetter(car.brand)}
+                    <br />
+                    {car.model && capitalizeFirstLetter(car.model)}
+                  </h4>
+                  <div className="col text-left  flex-grow-1 h-100">
+                    {" "}
+                    <ul style={{ listStyleType: "disc", textAlign: "left" }}>
+                      {" "}
+                      <li>Year: {car.year}</li>
+                      <li>Price: {car.price}</li>
+                      <li>
+                        Color: {car.color && capitalizeFirstLetter(car.color)}
+                      </li>
+                    </ul>
+                  </div>
                   <div className="col">
                     <button
                       className="m-2 pr-4 pl-4 btn btn-secondary"

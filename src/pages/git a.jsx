@@ -90,14 +90,13 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-
-      <div className="listings-page-container">
-        <div
-          className="d-flex justify-content-center align-items-center p-5 m-2"
-          style={{ gap: "20px", zIndex: "2" }} // Set a higher z-index for the search bar container
-        >
-          <h1 className="text">Recommended for you</h1>{" "}
-        </div>
+      <div
+        className="align-items-center p-5 m-2"
+        style={{ gap: "20px", zIndex: "2" }}
+      >
+        <h1 className="text">Recommended for you</h1> <br />
+      </div>
+      <div className="listings-page-container w-100 ">
         {/* Dark/Light Mode Switch */}
         <div
           className="form-check form-switch position-fixed bottom-0 end-0 m-4"
@@ -112,21 +111,15 @@ const HomePage = () => {
             onClick={myFunction}
           />
         </div>
-        <div className="row w-100 d-flex justify-content-start">
+        <div className="row w-100 ">
           {filteredListings.length > 0 ? (
             filteredListings.map((car) => (
-              <div
-                key={car._id}
-                className="col d-flex justify-content-start mb-4"
-              >
-                <div
-                  className="card m-2 p-0 d-flex justify-content-center"
-                  style={{ width: "18rem" }}
-                >
+              <div key={car._id} className="col  mb-4 ">
+                <div className="card m-2 p-0" style={{ width: "18rem" }}>
                   <img
                     src={car.image}
                     alt={`${car.make} ${car.model}`}
-                    className="card-img-top mx-auto" // Center the image horizontally
+                    className="card-img-top mx-auto"
                     style={{
                       width: "100%",
                       height: "150px",
@@ -136,11 +129,13 @@ const HomePage = () => {
                       padding: "0",
                     }}
                   />
-                  <h4 className="mt-3 text-left w-100 d-flex p-2">
-                    {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+                  <h4 className="mt-2 text-left w-100 p-2">
+                    {car.brand && capitalizeFirstLetter(car.brand)}
+                    <br />
+
                     {car.model && capitalizeFirstLetter(car.model)}
                   </h4>
-                  <div className="col text-left">
+                  <div className="col text-left  flex-grow-1 h-100">
                     {" "}
                     <ul style={{ listStyleType: "disc", textAlign: "left" }}>
                       {" "}
@@ -152,9 +147,9 @@ const HomePage = () => {
                     </ul>
                   </div>
 
-                  <div className="col">
+                  <div className="col d-flex flex-end h-100">
                     <button
-                      className="m-2  btn btn-ae-primary d-flex justify-content-left"
+                      className="m-2 btn btn-ae-primary d-flex flex-end justify-content-left button-fixed-height"
                       onClick={() => handleAddToCart(car.id)}
                     >
                       Add to Cart
