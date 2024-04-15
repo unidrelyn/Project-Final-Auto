@@ -148,8 +148,9 @@ const HomePage = () => {
                         padding: "0",
                       }}
                     />
-                    <h4 className="mt-3 text-left w-100 d-flex p-2">
-                      {car.brand && capitalizeFirstLetter(car.brand)}{" "}
+                    <h4 className="mt-2 text-left w-100 p-2">
+                      {car.brand && capitalizeFirstLetter(car.brand)}
+                      <br />
                       {car.model && capitalizeFirstLetter(car.model)}
                     </h4>
                     <div className="col text-left">
