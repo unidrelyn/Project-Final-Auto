@@ -69,18 +69,18 @@ body,
 .btn-ae-primary {
   --bs-btn-color: #fff !important;
   --bs-btn-bg: var(--bs-indigo) !important;
-  --bs-btn-border-color: var(--ae-purple-700);
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: var(--bs-purple);
-  --bs-btn-hover-border-color: var(--bs-indigo);
-  --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: var(--ae-purple-700);
-  --bs-btn-active-border-color: var(--ae-purple-800);
+  --bs-btn-border-color: var(--ae-purple-700) !important;
+  --bs-btn-hover-color: #fff !important;
+  --bs-btn-hover-bg: var(--bs-purple) !important;
+  --bs-btn-hover-border-color: var(--bs-indigo) !important;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253 !important;
+  --bs-btn-active-color: #fff !important;
+  --bs-btn-active-bg: var(--ae-purple-700) !important;
+  --bs-btn-active-border-color: var(--ae-purple-800) !important;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: var(--ae-gray-500);
-  --bs-btn-disabled-border-color: var(--ae-gray-600);
+  --bs-btn-disabled-color: #fff !important;
+  --bs-btn-disabled-bg: var(--ae-gray-500) !important;
+  --bs-btn-disabled-border-color: var(--ae-gray-600) !important;
 }
 
 [data-bs-theme="custom-dark"] {
@@ -121,4 +121,19 @@ img.home-page-logo {
 img.home-page-logo:hover {
   -webkit-filter: drop-shadow(1px 1px 7px black);
   transition: -webkit-filter 300ms ease-in-out;
+}
+
+.row {
+  --bs-gutter-x: 0rem;
+}
+
+.custom-row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.button-fixed-height {
+  height: 38px; /* Fixed height */
+  bottom: 0; /* Align the button to the bottom */
+  margin: 0 auto; /* Center the button horizontally */
 }
