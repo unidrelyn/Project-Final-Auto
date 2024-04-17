@@ -103,7 +103,9 @@ const ListingsPage = () => {
             "@media (minWidth: 576px)": { paddingTop: "200px" },
           }}
         >
-          <h1 className="main-heading">Car Listings</h1>
+          <h1 className="main-heading" style={{ color: "white" }}>
+            Car Listings
+          </h1>
         </div>
 
         <div className="listings-page-container">
@@ -115,14 +117,20 @@ const ListingsPage = () => {
               type="text"
               placeholder="Search by make or model..."
               className="search-bar"
+              style={{
+                width: "300px",
+                "@media (max-width: 768px)": {
+                  width: "150px",
+                },
+              }}
               onChange={handleSearchChange}
             />
             <Button
               onClick={() => setShow(true)}
-              className="primary-button"
+              className="btn btn-ae-primary"
               variant="primary"
             >
-              Sell Your Car
+              {window.innerWidth <= 768 ? "Sell" : "Sell Your Car"}
             </Button>
           </div>
           {/* Dark/Light Mode Switch */}
@@ -187,12 +195,7 @@ const ListingsPage = () => {
                         Delete
                       </button>
                       <button
-                        className="m-2 btn btn-primary"
-                        style={{
-                          backgroundColor: "#7749F8",
-                          color: "white",
-                          borderColor: "#59359A",
-                        }}
+                        className="m-2 btn btn-ae-primary"
                         onClick={() => handleAddToCart(car._id)}
                       >
                         Add to Cart
